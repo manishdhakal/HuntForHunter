@@ -10,5 +10,6 @@
     <ClInclude Include="src\sprites.h" />
     <ClInclude Include="src\maingame.h" />
     <ClInclude Include="src\GLSLProgram.h" />
+    <ClInclude Include="src\Common.h" />
   </ItemGroup>
 </Project>

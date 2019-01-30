@@ -1,5 +1,5 @@
 #include "sprites.h"
-
+#include "Common.h"
 
 
 sprites::sprites()
@@ -12,7 +12,7 @@ sprites::~sprites()
 {
 	if (_vboID != 0)
 	{
-		glDeleteBuffers(1, &_vboID);
+		GLError(glDeleteBuffers(1, &_vboID));
 	}
 }
 
@@ -25,7 +25,7 @@ void sprites:: init(float x, float y, float width, float height)
 
 	if (_vboID == 0)
 	{
-		glGenBuffers(1, &_vboID);
+		GLError(glGenBuffers(1, &_vboID));
 	}
 
 	float vertexData[12];
@@ -43,18 +43,18 @@ void sprites:: init(float x, float y, float width, float height)
 	vertexData[10] = x + width;
 	vertexData[11] = y + height;
 
-	glBindBuffer(GL_ARRAY_BUFFER, _vboID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+	GLError(glBindBuffer(GL_ARRAY_BUFFER, _vboID));
+	GLError(glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW));
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GLError(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 void sprites::draw()
 {
-	glBindBuffer(GL_ARRAY_BUFFER, _vboID);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glDisableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GLError(glBindBuffer(GL_ARRAY_BUFFER, _vboID));
+	GLError(glEnableVertexAttribArray(0));
+	GLError(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0));
+	GLError(glDrawArrays(GL_TRIANGLES, 0, 6));
+	GLError(glDisableVertexAttribArray(0));
+	GLError(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 }

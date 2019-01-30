@@ -164,6 +164,7 @@
     <ClCompile Include="src\sprites.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\GLSLProgram.h" />
     <ClInclude Include="src\maingame.h" />
     <ClInclude Include="src\sprites.h" />
