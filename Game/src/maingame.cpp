@@ -18,7 +18,7 @@ maingame::~maingame()
 void maingame::run()
 {
 	initSystems();
-	_sprite.init(-1.0f,-1.0f,1.0f,1.0f);
+	_sprite.init(-1.0f,-1.0f,2.0f,2.0f);
 	//_playerTexture = ImageLoader::loadPNG("textures/screenshot2_0.png");
 	gameLoop();
 
@@ -51,6 +51,7 @@ void maingame::initShaders()
 {
 	_colorProgram.compileShaders("shaders/colorShading.vert.txt", "shaders/colorShading.frag.txt");
 	_colorProgram.addAttribute("vertexPosition");
+	_colorProgram.addAttribute("vertexColor");
 	_colorProgram.linkShaders();
 }
 
