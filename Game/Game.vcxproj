@@ -158,11 +158,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GLSLProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maingame.cpp" />
     <ClCompile Include="src\sprites.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GLSLProgram.h" />
     <ClInclude Include="src\maingame.h" />
     <ClInclude Include="src\sprites.h" />
   </ItemGroup>

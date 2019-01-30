@@ -4,9 +4,11 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\sprites.cpp" />
     <ClCompile Include="src\maingame.cpp" />
+    <ClCompile Include="src\GLSLProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\sprites.h" />
     <ClInclude Include="src\maingame.h" />
+    <ClInclude Include="src\GLSLProgram.h" />
   </ItemGroup>
 </Project>
