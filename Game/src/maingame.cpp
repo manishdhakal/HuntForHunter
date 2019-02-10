@@ -1,5 +1,6 @@
 #include "maingame.h"
 #include "Common.h"
+#include"ImageLoader.h"
 #include <iostream>
 #include <string>
 
@@ -21,7 +22,7 @@ void maingame::run()
 {
 	initSystems();
 	_sprite.init(-1.0f,-1.0f,2.0f,2.0f);
-	//_playerTexture = ImageLoader::loadPNG("textures/screenshot2_0.png");
+	_playerTexture = ImageLoader::loadPNG("textures/screenshot2_0.png");
 	gameLoop();
 
 }
@@ -54,6 +55,7 @@ void maingame::initShaders()
 	_colorProgram.compileShaders("shaders/colorShading.vert.txt", "shaders/colorShading.frag.txt");
 	_colorProgram.addAttribute("vertexPosition");
 	_colorProgram.addAttribute("vertexColor");
+	_colorProgram.addAttribute("vertexUV");
 	_colorProgram.linkShaders();
 }
 
@@ -92,9 +94,14 @@ void maingame:: drawGame()
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	
 	_colorProgram.use();
-	GLuint timeLocation = _colorProgram.getUniformLocation("time");
-	glUniform1f(timeLocation, _time);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
+	GLint textureLocation = _colorProgram.getUniformLocation("mySampler");
+	glUniform1i(textureLocation, 0);
+	//GLuint timeLocation = _colorProgram.getUniformLocation("time");
+	//glUniform1f(timeLocation, _time);
 	_sprite.draw();
+	glBindTexture(GL_TEXTURE_2D,0);
 	_colorProgram.unuse();
 	SDL_GL_SwapWindow(_window);
 
