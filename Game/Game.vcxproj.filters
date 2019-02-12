@@ -7,6 +7,8 @@
     <ClCompile Include="src\GLSLProgram.cpp" />
     <ClCompile Include="src\ImageLoader.cpp" />
     <ClCompile Include="src\texture.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\TextureCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\sprites.h" />
@@ -17,5 +19,7 @@
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\Vertex.h" />
+    <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\TextureCache.h" />
   </ItemGroup>
 </Project>

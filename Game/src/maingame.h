@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "GLSLProgram.h"
-
+#include<vector>
 #include "sprites.h"
 #include "texture.h"
 
@@ -25,8 +25,9 @@ private:
 	float _time;
 	SDL_Window* _window;
 	GameState _gameState;
-	GLTexture _playerTexture;
-	sprites _sprite;
+	//GLTexture _texture;
+	//sprites _sprite;
+	std::vector <sprites*> _sprites;
 	GLSLProgram _colorProgram;
 };
 

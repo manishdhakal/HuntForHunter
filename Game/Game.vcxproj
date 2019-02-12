@@ -158,14 +158,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\GLSLProgram.cpp" />
     <ClCompile Include="src\ImageLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maingame.cpp" />
     <ClCompile Include="src\sprites.cpp" />
     <ClCompile Include="src\texture.cpp" />
+    <ClCompile Include="src\TextureCache.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\GLSLProgram.h" />
     <ClInclude Include="src\ImageLoader.h" />
@@ -174,6 +177,7 @@
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\Vertex.h" />
+    <ClInclude Include="src\TextureCache.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

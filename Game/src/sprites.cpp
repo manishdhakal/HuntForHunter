@@ -2,6 +2,7 @@
 #include "Common.h"
 #include <cstddef>
 #include "Vertex.h"
+#include "ResourceManager.h"
 sprites::sprites()
 {
 	_vboID = 0;
@@ -16,12 +17,14 @@ sprites::~sprites()
 	}
 }
 
-void sprites:: init(float x, float y, float width, float height)
+void sprites:: init(float x, float y, float width, float height,std::string texturePath)
 {
 	_x = x;
 	_y = y;
 	_height = height;
 	_width = width;
+
+	_texture = ResourceManager::getTexture(texturePath);
 
 	if (_vboID == 0)
 	{
@@ -77,6 +80,7 @@ void sprites:: init(float x, float y, float width, float height)
 }
 void sprites::draw()
 {
+	glBindTexture(GL_TEXTURE_2D, _texture.id);
 	GLError(glBindBuffer(GL_ARRAY_BUFFER, _vboID));
 	GLError(glEnableVertexAttribArray(0));
 	GLError(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),(void*) offsetof(Vertex,position)));
