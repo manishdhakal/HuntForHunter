@@ -19,6 +19,7 @@ private:
 	void gameLoop();
 	void processInput();
 	void drawGame();
+	void calculateFPS();
 	
 	int _screenWidth;
 	int _screenHeight;
@@ -29,5 +30,9 @@ private:
 	//sprites _sprite;
 	std::vector <sprites*> _sprites;
 	GLSLProgram _colorProgram;
+	float _fps;
+	float _maxFPS;
+	float _frameTime;
+	
 };
 
