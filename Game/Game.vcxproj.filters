@@ -2,24 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\sprites.cpp" />
     <ClCompile Include="src\maingame.cpp" />
-    <ClCompile Include="src\GLSLProgram.cpp" />
-    <ClCompile Include="src\ImageLoader.cpp" />
-    <ClCompile Include="src\texture.cpp" />
-    <ClCompile Include="src\ResourceManager.cpp" />
-    <ClCompile Include="src\TextureCache.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sprites.h" />
     <ClInclude Include="src\maingame.h" />
-    <ClInclude Include="src\GLSLProgram.h" />
-    <ClInclude Include="src\Common.h" />
-    <ClInclude Include="src\ImageLoader.h" />
-    <ClInclude Include="src\stb_image.h" />
-    <ClInclude Include="src\texture.h" />
-    <ClInclude Include="src\Vertex.h" />
-    <ClInclude Include="src\ResourceManager.h" />
-    <ClInclude Include="src\TextureCache.h" />
   </ItemGroup>
 </Project>

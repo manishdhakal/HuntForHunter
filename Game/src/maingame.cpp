@@ -38,7 +38,7 @@ void maingame::run()
 void maingame::initSystems()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	_window = SDL_CreateWindow("Game Engine", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, _screenWidth, _screenHeight, SDL_WINDOW_OPENGL);
 	if (_window == nullptr)
 	{
@@ -54,9 +54,13 @@ void maingame::initSystems()
 	{
 		Error(ErrorCode::GLEWNotLoaded, "GLEW", "Could not initialize");
 	}
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	
+	std::printf("*** OpenGL Version: %s ***", glGetString(GL_VERSION));
 
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+
+	SDL_GL_SetSwapInterval(0);
+
 	initShaders();
 }
 void maingame::initShaders()
@@ -90,7 +94,7 @@ void maingame::gameLoop()
 		float  frameTicks = SDL_GetTicks() - startTicks;
 		if (1000.0f / _maxFPS > frameTicks)
 		{
-			SDL_Delay(1000.0f / _maxFPS - frameTicks);
+			SDL_Delay(1000.0f/_maxFPS-frameTicks);
 		}
 		
 	}
