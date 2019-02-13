@@ -3,6 +3,7 @@
 //#include"ImageLoader.h"
 #include <iostream>
 #include <string>
+#include"glm.hpp"
 
 maingame::maingame() :
 	_screenWidth(1024),

@@ -72,28 +72,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
