@@ -74,29 +74,29 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -179,6 +179,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\GLSLProgram.h" />
     <ClInclude Include="src\ImageLoader.h" />
@@ -188,14 +189,17 @@
     <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\TextureCache.h" />
     <ClInclude Include="src\Vertex.h" />
+    <ClInclude Include="src\Windows.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GLSLProgram.cpp" />
     <ClCompile Include="src\ImageLoader.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\sprites.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\TextureCache.cpp" />
+    <ClCompile Include="src\Windows.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

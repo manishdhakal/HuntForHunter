@@ -2,29 +2,32 @@
 #include"ImageLoader.h"
 #include<iostream>
 
-TextureCache::TextureCache()
+namespace GameEngine
 {
-}
-
-
-TextureCache::~TextureCache()
-{
-}
-
-GLTexture TextureCache:: getTexture(std::string texturePath)
-{
-	auto mit = _textureMap.find(texturePath);
-
-	if (mit == _textureMap.end())
+	TextureCache::TextureCache()
 	{
-		GLTexture newTexture = ImageLoader::loadPNG(texturePath);
-		_textureMap.insert(make_pair(texturePath, newTexture));
-
-		std::cout << "Used Cached Texture."<<std::endl;
-
-		return newTexture;
 	}
-	std::cout << "Loaded Texture."<<std::endl;
-	return mit->second;
 
+
+	TextureCache::~TextureCache()
+	{
+	}
+
+	GLTexture TextureCache::getTexture(std::string texturePath)
+	{
+		auto mit = _textureMap.find(texturePath);
+
+		if (mit == _textureMap.end())
+		{
+			GLTexture newTexture = ImageLoader::loadPNG(texturePath);
+			_textureMap.insert(make_pair(texturePath, newTexture));
+
+			std::cout << "Used Cached Texture." << std::endl;
+
+			return newTexture;
+		}
+		std::cout << "Loaded Texture." << std::endl;
+		return mit->second;
+
+	}
 }

@@ -8,7 +8,7 @@ maingame::maingame() :
 	_screenWidth(1024),
 	_screenHeight(768),
 	_time(0.0f),
-	_window(nullptr),
+	//_window(nullptr),
 	_gameState(GameState::PLAY),
 	_maxFPS(60.0f)
 {
@@ -22,13 +22,13 @@ maingame::~maingame()
 void maingame::run()
 {
 	initSystems();
-	_sprites.push_back(new sprites());
+	_sprites.push_back(new GameEngine::sprites());
 	_sprites.back()->init(-1.0f, -1.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
 
-	_sprites.push_back(new sprites());
+	_sprites.push_back(new GameEngine::sprites());
 	_sprites.back()->init(0.0f, -1.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
 
-	_sprites.push_back(new sprites());
+	_sprites.push_back(new GameEngine::sprites());
 	_sprites.back()->init(-1.0f, 0.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
 	//_sprite.init(-1.0f,-1.0f,2.0f,2.0f,"textures/screenshot2_0.png");
 	//_playerTexture = ImageLoader::loadPNG("textures/screenshot2_0.png");
@@ -37,29 +37,8 @@ void maingame::run()
 }
 void maingame::initSystems()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	_window = SDL_CreateWindow("Game Engine", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, _screenWidth, _screenHeight, SDL_WINDOW_OPENGL);
-	if (_window == nullptr)
-	{
-		Error(ErrorCode::WindowNotCreated, "SDL", " Window could not be created!");
-	}
-	SDL_GLContext glContext = SDL_GL_CreateContext(_window);
-	if (glContext == nullptr)
-	{
-		Error(ErrorCode::GLContextNotCreated, "SDL", "SDL_GL context could not be created!");
-	}
-	GLenum error = glewInit();
-	if (error != GLEW_OK)
-	{
-		Error(ErrorCode::GLEWNotLoaded, "GLEW", "Could not initialize");
-	}
-	
-	std::printf("*** OpenGL Version: %s ***", glGetString(GL_VERSION));
-
-	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-
-	SDL_GL_SetSwapInterval(0);
+	GameEngine::init();
+	_window.create("Game Engine", _screenWidth, _screenHeight,0);
 
 	initShaders();
 }
@@ -137,7 +116,7 @@ void maingame:: drawGame()
 	
 	glBindTexture(GL_TEXTURE_2D,0);
 	_colorProgram.unuse();
-	SDL_GL_SwapWindow(_window);
+	_window.swapBuffer();
 
 }
 
