@@ -179,6 +179,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Camera2D.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\GLSLProgram.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="src\Windows.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Camera2D.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GLSLProgram.cpp" />
     <ClCompile Include="src\ImageLoader.cpp" />

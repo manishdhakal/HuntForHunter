@@ -6,6 +6,7 @@
 #include "sprites.h"
 #include "texture.h"
 #include"Windows.h"
+#include"Camera2D.h"
 
  enum class GameState {PLAY,EXIT}; 
 class maingame
@@ -32,6 +33,7 @@ private:
 	//sprites _sprite;
 	std::vector <GameEngine::sprites*> _sprites;
 	GameEngine::GLSLProgram _colorProgram;
+	GameEngine::Camera2D camera;
 	float _fps;
 	float _maxFPS;
 	float _frameTime;

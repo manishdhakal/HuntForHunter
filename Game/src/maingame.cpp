@@ -13,6 +13,7 @@ maingame::maingame() :
 	_gameState(GameState::PLAY),
 	_maxFPS(60.0f)
 {
+	camera.init(_screenWidth, _screenHeight);
 	
 }
 
@@ -24,13 +25,13 @@ void maingame::run()
 {
 	initSystems();
 	_sprites.push_back(new GameEngine::sprites());
-	_sprites.back()->init(-1.0f, -1.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
+	_sprites.back()->init(0.0f, 0.0f, _screenWidth / 2, _screenHeight/2, "textures/screenshot2_0.png");
 
 	_sprites.push_back(new GameEngine::sprites());
-	_sprites.back()->init(0.0f, -1.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
+	_sprites.back()->init(_screenWidth / 2, 0.0f, _screenWidth / 2,_screenHeight/2, "textures/screenshot2_0.png");
 
-	_sprites.push_back(new GameEngine::sprites());
-	_sprites.back()->init(-1.0f, 0.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
+	//_sprites.push_back(new GameEngine::sprites());
+	//_sprites.back()->init(-1.0f, 0.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
 	//_sprite.init(-1.0f,-1.0f,2.0f,2.0f,"textures/screenshot2_0.png");
 	//_playerTexture = ImageLoader::loadPNG("textures/screenshot2_0.png");
 	gameLoop();
@@ -60,6 +61,7 @@ void maingame::gameLoop()
 		float startTicks = SDL_GetTicks();
 		processInput();
 		_time += 0.01;
+		camera.update();
 		drawGame();
 		calculateFPS();
 
@@ -83,6 +85,9 @@ void maingame::gameLoop()
 void maingame::processInput()
 {
 	SDL_Event evnt;
+	const float CameraSpeed = 20.0f;
+	const float ScaleSpeed = 0.1f;
+
 	while (SDL_PollEvent(&evnt))
 	{
 		switch (evnt.type)
@@ -92,6 +97,30 @@ void maingame::processInput()
 			break;
 		case SDL_MOUSEMOTION:
 			//std::cout << evnt.motion.x << " " << evnt.motion.y <<std:: endl;
+			break;
+		case SDL_KEYDOWN:
+			switch (evnt.key.keysym.sym)
+			{
+			case SDLK_w:
+				camera.setPosition(camera.getPosition() + glm::vec2(0.0f, CameraSpeed));
+				break;
+			case SDLK_s :
+				camera.setPosition(camera.getPosition() - glm::vec2(0.0f, CameraSpeed));
+				break;
+			case SDLK_a:
+				camera.setPosition(camera.getPosition() + glm::vec2(CameraSpeed, 0.0f));
+				break;
+			case SDLK_d:
+				camera.setPosition(camera.getPosition() - glm::vec2(CameraSpeed, 0.0f));
+				break;
+			case SDLK_q:
+				camera.setScale(camera.getScale() + ScaleSpeed);
+				break;
+			case SDLK_p:
+				camera.setScale(camera.getScale() - ScaleSpeed);
+				break;
+
+			}
 			break;
 		}
 	}
@@ -108,8 +137,14 @@ void maingame:: drawGame()
 	//glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
 	GLint textureLocation = _colorProgram.getUniformLocation("mySampler");
 	glUniform1i(textureLocation, 0);
-	//GLuint timeLocation = _colorProgram.getUniformLocation("time");
-	//glUniform1f(timeLocation, _time);
+	GLuint timeLocation = _colorProgram.getUniformLocation("time");
+	glUniform1f(timeLocation, _time);
+
+	GLuint pLocation = _colorProgram.getUniformLocation("P");
+	glm::mat4 CameraMatrix = camera.getcameraMatrix();
+
+	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(CameraMatrix[0][0]));
+
 	for (int i = 0; i < _sprites.size(); i++)
 	{
 		_sprites[i]->draw();
