@@ -179,6 +179,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\keyHandler.h" />
     <ClInclude Include="src\SpriteBatch.h" />
     <ClInclude Include="src\Camera2D.h" />
     <ClInclude Include="src\GameEngine.h" />
@@ -190,10 +191,12 @@
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\TextureCache.h" />
+    <ClInclude Include="src\timing.h" />
     <ClInclude Include="src\Vertex.h" />
     <ClInclude Include="src\Windows.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\keyHandler.cpp" />
     <ClCompile Include="src\SpriteBatch.cpp" />
     <ClCompile Include="src\Camera2D.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
@@ -203,7 +206,16 @@
     <ClCompile Include="src\sprites.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\TextureCache.cpp" />
+    <ClCompile Include="src\timing.cpp" />
     <ClCompile Include="src\Windows.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\textures\fireball.png" />
+    <Image Include="..\Game\textures\player.png" />
+    <Image Include="..\Game\textures\ponypoke_0.png" />
+    <Image Include="..\Game\textures\screenshot2_0.png" />
+    <Image Include="..\Game\textures\screenshot_tileset.png" />
+    <Image Include="..\Game\textures\screen_0.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -36,6 +36,7 @@ namespace GameEngine
 		{
 			return cameraMatrix;
 		}
+		glm::vec2 ScreenToWorldCoordinates(glm::vec2 screenCoordinates);
 
 	private:
 		int _screenWidth, _screenHeight;

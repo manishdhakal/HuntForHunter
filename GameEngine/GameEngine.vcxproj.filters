@@ -54,6 +54,12 @@
     <ClInclude Include="src\SpriteBatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\keyHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\timing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GLSLProgram.cpp">
@@ -86,5 +92,31 @@
     <ClCompile Include="src\SpriteBatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\keyHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\timing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\textures\fireball.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Game\textures\player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Game\textures\ponypoke_0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Game\textures\screen_0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Game\textures\screenshot_tileset.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Game\textures\screenshot2_0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -36,6 +36,19 @@ namespace GameEngine
 			//cameraMatrix = glm::translate(orthoMatrix, translate);
 			needsMatrixUpdate = false;
 		}
-
 	}
+	glm::vec2 Camera2D::ScreenToWorldCoordinates(glm::vec2 screenCoordinates) {\
+
+		screenCoordinates.y = _screenHeight - screenCoordinates.y;
+
+		screenCoordinates -= glm::vec2(_screenWidth / 2, _screenHeight / 2);
+
+		screenCoordinates /= scale;
+
+		screenCoordinates += position;
+
+		return screenCoordinates;
+	}
+
+
 }

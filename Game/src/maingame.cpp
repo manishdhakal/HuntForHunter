@@ -1,9 +1,10 @@
 #include "maingame.h"
 #include "Common.h"
 #include <iostream>
+#include <iostream>
 #include <string>
-#include"glm.hpp"
-#include"ResourceManager.h"
+#include "glm.hpp"
+#include "ResourceManager.h"
 
 maingame::maingame() :
 	_screenWidth(1024),
@@ -34,7 +35,7 @@ void maingame::initSystems()
 
 	initShaders();
 	_spriteBatch.init();
-
+	fpsLimiterObj.init(_maxFPS);
 }
 void maingame::initShaders()
 {
@@ -50,27 +51,37 @@ void maingame::gameLoop()
 {
 	while (_gameState != GameState::EXIT)
 	{
-		float startTicks = SDL_GetTicks();
+		fpsLimiterObj.beginFrame();
+		
 		processInput();
+
 		_time += 0.01;
+
 		camera.update();
+
+		for (int i = 0; i < bullets.size(); i++) {
+
+			if (bullets[i].updatePos() == true) {
+				bullets[i] = bullets.back();
+				bullets.pop_back();
+			}
+			else {
+				i++;
+			}
+		}
+
 		drawGame();
-		calculateFPS();
+		_fps = fpsLimiterObj.endFrame();
 
 		static int frameCounter = 0;
 		frameCounter++;
-		if (frameCounter == 10)
+		if (frameCounter == 10000)
 		{
 			std::cout << _fps << std::endl;
 			frameCounter = 0;
 
 		}
-		float  frameTicks = SDL_GetTicks() - startTicks;
-		if (1000.0f / _maxFPS > frameTicks)
-		{
-			SDL_Delay(1000.0f/_maxFPS-frameTicks);
-		}
-		
+
 	}
 }
 
@@ -84,37 +95,55 @@ void maingame::processInput()
 	{
 		switch (evnt.type)
 		{
-		case SDL_QUIT:
-			_gameState = GameState::EXIT;
-			break;
-		case SDL_MOUSEMOTION:
-			//std::cout << evnt.motion.x << " " << evnt.motion.y <<std:: endl;
-			break;
-		case SDL_KEYDOWN:
-			switch (evnt.key.keysym.sym)
-			{
-			case SDLK_w:
-				camera.setPosition(camera.getPosition() + glm::vec2(0.0f, CameraSpeed));
+			case SDL_QUIT:
+				_gameState = GameState::EXIT;
 				break;
-			case SDLK_s :
-				camera.setPosition(camera.getPosition() - glm::vec2(0.0f, CameraSpeed));
+			case SDL_MOUSEMOTION:
+				keyHandlerObj.setMouseCoordinates(evnt.motion.x, evnt.motion.y);
 				break;
-			case SDLK_a:
-				camera.setPosition(camera.getPosition() + glm::vec2(-CameraSpeed, 0.0f));
+			case SDL_KEYDOWN:
+				keyHandlerObj.keyPress(evnt.key.keysym.sym);
 				break;
-			case SDLK_d:
-				camera.setPosition(camera.getPosition() + glm::vec2(CameraSpeed, 0.0f));
+			case  SDL_KEYUP:
+				keyHandlerObj.keyRelease(evnt.key.keysym.sym);
 				break;
-			case SDLK_q:
-				camera.setScale(camera.getScale() + ScaleSpeed);
+			case SDL_MOUSEBUTTONDOWN:
+				keyHandlerObj.keyPress(evnt.button.button);
 				break;
-			case SDLK_p:
-				camera.setScale(camera.getScale() - ScaleSpeed);
-				break;
-
-			}
-			break;
+			case SDL_MOUSEBUTTONUP:
+				keyHandlerObj.keyRelease(evnt.button.button);
+				break; 
 		}
+	}
+
+	if (keyHandlerObj.iskeyPressed( SDLK_w))
+		camera.setPosition(camera.getPosition() + glm::vec2(0.0f, CameraSpeed));
+
+	if (keyHandlerObj.iskeyPressed( SDLK_s))
+		camera.setPosition(camera.getPosition() - glm::vec2(0.0f, CameraSpeed));
+	
+	if (keyHandlerObj.iskeyPressed( SDLK_a))
+		camera.setPosition(camera.getPosition() + glm::vec2(-CameraSpeed, 0.0f));
+	if (keyHandlerObj.iskeyPressed( SDLK_d))
+		camera.setPosition(camera.getPosition() + glm::vec2(CameraSpeed, 0.0f));
+		
+	if (keyHandlerObj.iskeyPressed( SDLK_q))
+		camera.setScale(camera.getScale() + ScaleSpeed);
+		
+	if (keyHandlerObj.iskeyPressed(SDLK_p))
+		camera.setScale(camera.getScale() - ScaleSpeed);
+
+	if (keyHandlerObj.iskeyPressed(SDL_BUTTON_LEFT)) {
+		glm::vec2 mouseCoordinates = keyHandlerObj.getMouseCoordinates();
+		mouseCoordinates = camera.ScreenToWorldCoordinates(mouseCoordinates);
+		std::cout << mouseCoordinates.x << "  " << mouseCoordinates.y << '\n';
+
+		glm::vec2 playerPosition(0.0f);
+		glm::vec2 direction = mouseCoordinates - playerPosition;
+		
+		direction = glm::normalize(direction);
+
+		bullets.emplace_back(playerPosition, direction, 5.0f, 1000);
 	}
 }
 
@@ -129,9 +158,7 @@ void maingame:: drawGame()
 	//glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
 	GLint textureLocation = _colorProgram.getUniformLocation("mySampler");
 	GLError(glUniform1i(textureLocation, 0));
-	GLuint timeLocation = _colorProgram.getUniformLocation("time");
-	GLError(glUniform1f(timeLocation, _time));
-
+	
 	GLuint pLocation = _colorProgram.getUniformLocation("P");
 	glm::mat4 CameraMatrix = camera.getcameraMatrix();
 
@@ -141,65 +168,26 @@ void maingame:: drawGame()
 
 	glm::vec4 pos(0.0f, 0.0f, 50.0f, 50.0f);
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
-	GLError(static GameEngine::GLTexture texture = GameEngine::ResourceManager::getTexture("textures/screenshot2_0.png"));
+	GLError(static GameEngine::GLTexture texture = GameEngine::ResourceManager::getTexture("textures/player.png"));
 	GameEngine::Color color;
 	color.r = 255;
 	color.g = 255;
 	color.b = 255;
 	color.a = 255;
 
-	for (int i = 0; i < 1000; i++)
-	{
-		_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
-		_spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
+	_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
+	//_spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
+	for (int i = 0; i < bullets.size(); i++) {
+		bullets[i].draw(_spriteBatch);
 	}
+	
+	
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
-
-
-
 	
 	GLError(glBindTexture(GL_TEXTURE_2D,0));
 	_colorProgram.unuse();
 	_window.swapBuffer();
 
-}
-
-void maingame::calculateFPS()
-{
-	static const int NUM_SAMPLES = 10;
-	static float frameTimes[NUM_SAMPLES];
-	static int currentFrame = 0;
-	static float prevTicks = SDL_GetTicks();
-	float currentTicks;
-	currentTicks = SDL_GetTicks();
-	_frameTime = currentTicks - prevTicks;
-	frameTimes[currentFrame%NUM_SAMPLES]=_frameTime;
-	prevTicks = currentTicks;
-	int count;
-	currentFrame++;
-	if (currentFrame < NUM_SAMPLES)
-	{
-		count = currentFrame;
-	}
-	else
-	{
-		count = NUM_SAMPLES;
-	}
-	float frameTimeAverage=0;
-	for (int i = 0; i < count; i++)
-	{
-		frameTimeAverage += frameTimes[i];
-	}
-	frameTimeAverage /= count;
-	if (frameTimeAverage > 0)
-	{
-		_fps = 1000.0 / frameTimeAverage;
-	}
-	else
-	{
-		_fps = 60.0f;
-	}
-	
 }
 

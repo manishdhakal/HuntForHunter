@@ -158,10 +158,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\fireWeapon.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maingame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\fireWeapon.h" />
     <ClInclude Include="src\maingame.h" />
   </ItemGroup>
   <ItemGroup>
