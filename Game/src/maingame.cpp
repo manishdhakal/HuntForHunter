@@ -1,15 +1,14 @@
 #include "maingame.h"
 #include "Common.h"
-//#include"ImageLoader.h"
 #include <iostream>
 #include <string>
 #include"glm.hpp"
+#include"ResourceManager.h"
 
 maingame::maingame() :
 	_screenWidth(1024),
 	_screenHeight(768),
 	_time(0.0f),
-	//_window(nullptr),
 	_gameState(GameState::PLAY),
 	_maxFPS(60.0f)
 {
@@ -24,16 +23,7 @@ maingame::~maingame()
 void maingame::run()
 {
 	initSystems();
-	_sprites.push_back(new GameEngine::sprites());
-	_sprites.back()->init(0.0f, 0.0f, _screenWidth / 2, _screenHeight/2, "textures/screenshot2_0.png");
-
-	_sprites.push_back(new GameEngine::sprites());
-	_sprites.back()->init(_screenWidth / 2, 0.0f, _screenWidth / 2,_screenHeight/2, "textures/screenshot2_0.png");
-
-	//_sprites.push_back(new GameEngine::sprites());
-	//_sprites.back()->init(-1.0f, 0.0f, 1.0f, 1.0f, "textures/screenshot2_0.png");
-	//_sprite.init(-1.0f,-1.0f,2.0f,2.0f,"textures/screenshot2_0.png");
-	//_playerTexture = ImageLoader::loadPNG("textures/screenshot2_0.png");
+	
 	gameLoop();
 
 }
@@ -43,6 +33,8 @@ void maingame::initSystems()
 	_window.create("Game Engine", _screenWidth, _screenHeight,0);
 
 	initShaders();
+	_spriteBatch.init();
+
 }
 void maingame::initShaders()
 {
@@ -108,10 +100,10 @@ void maingame::processInput()
 				camera.setPosition(camera.getPosition() - glm::vec2(0.0f, CameraSpeed));
 				break;
 			case SDLK_a:
-				camera.setPosition(camera.getPosition() + glm::vec2(CameraSpeed, 0.0f));
+				camera.setPosition(camera.getPosition() + glm::vec2(-CameraSpeed, 0.0f));
 				break;
 			case SDLK_d:
-				camera.setPosition(camera.getPosition() - glm::vec2(CameraSpeed, 0.0f));
+				camera.setPosition(camera.getPosition() + glm::vec2(CameraSpeed, 0.0f));
 				break;
 			case SDLK_q:
 				camera.setScale(camera.getScale() + ScaleSpeed);
@@ -133,24 +125,38 @@ void maingame:: drawGame()
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	
 	_colorProgram.use();
-	glActiveTexture(GL_TEXTURE0);
+	GLError(glActiveTexture(GL_TEXTURE0));
 	//glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
 	GLint textureLocation = _colorProgram.getUniformLocation("mySampler");
-	glUniform1i(textureLocation, 0);
+	GLError(glUniform1i(textureLocation, 0));
 	GLuint timeLocation = _colorProgram.getUniformLocation("time");
-	glUniform1f(timeLocation, _time);
+	GLError(glUniform1f(timeLocation, _time));
 
 	GLuint pLocation = _colorProgram.getUniformLocation("P");
 	glm::mat4 CameraMatrix = camera.getcameraMatrix();
 
-	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(CameraMatrix[0][0]));
+	GLError(glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(CameraMatrix[0][0])));
 
-	for (int i = 0; i < _sprites.size(); i++)
-	{
-		_sprites[i]->draw();
-	}
+	_spriteBatch.begin();
+
+	glm::vec4 pos(0.0f, 0.0f, 50.0f, 50.0f);
+	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
+	GLError(GameEngine::GLTexture texture = GameEngine::ResourceManager::getTexture("textures/screenshot2_0.png"));
+	GameEngine::Color color;
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
+	color.a = 255;
+
+	_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
+
+	_spriteBatch.end();
+	_spriteBatch.renderBatch();
+
+
+
 	
-	glBindTexture(GL_TEXTURE_2D,0);
+	GLError(glBindTexture(GL_TEXTURE_2D,0));
 	_colorProgram.unuse();
 	_window.swapBuffer();
 

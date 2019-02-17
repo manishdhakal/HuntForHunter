@@ -73,28 +73,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>D:\C++ project\Game\Dependencies\glm;D:\C++ project\Game\GameEngine\src;D:\C++ project\Game\Dependencies\SDL2\include;D:\C++ project\Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\C++ project\Game\Dependencies\SDL2\lib;D:\C++ project\Game\Dependencies\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\GameEngine\$(platform)\$(configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\GameEngine\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
@@ -113,7 +113,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -131,7 +131,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,7 +153,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -175,10 +175,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\SpriteBatch.h" />
     <ClInclude Include="src\Camera2D.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\Common.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="src\Windows.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SpriteBatch.cpp" />
     <ClCompile Include="src\Camera2D.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GLSLProgram.cpp" />

@@ -8,8 +8,8 @@ namespace GameEngine
 		orthoMatrix(1.0f),
 		scale(1.0f),
 		needsMatrixUpdate(true),
-		screenHeight(500),
-		screenWidth(500)
+		_screenHeight(500),
+		_screenWidth(500)
 	{
 	}
 
@@ -19,15 +19,15 @@ namespace GameEngine
 	}
 	void Camera2D::init(int screenWidth, int screenHeight)
 	{
-		screenWidth = screenWidth;
-		screenHeight = screenHeight;
+		_screenWidth = screenWidth;
+		_screenHeight = screenHeight;
 		orthoMatrix = glm::ortho(0.0f, (float)screenWidth, 0.0f, (float)screenHeight);
 	}
 	void Camera2D::update()
 	{
 		if (needsMatrixUpdate)
 		{
-			glm::vec3 translate(-position.x+screenWidth/2, -position.y+screenHeight/2, 0.0f);
+			glm::vec3 translate(-position.x+_screenWidth/2, -position.y+_screenHeight/2, 0.0f);
 			cameraMatrix = glm::translate(orthoMatrix, translate);
 
 			glm::vec3 scale(scale, scale, 0.0f);

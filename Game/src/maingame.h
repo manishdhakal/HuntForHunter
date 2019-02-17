@@ -7,7 +7,7 @@
 #include "texture.h"
 #include"Windows.h"
 #include"Camera2D.h"
-
+#include"SpriteBatch.h"
  enum class GameState {PLAY,EXIT}; 
 class maingame
 {
@@ -29,11 +29,10 @@ private:
 	float _time;
 	GameEngine::Windows _window;
 	GameState _gameState;
-	//GLTexture _texture;
-	//sprites _sprite;
-	std::vector <GameEngine::sprites*> _sprites;
+	
 	GameEngine::GLSLProgram _colorProgram;
 	GameEngine::Camera2D camera;
+	GameEngine::SpriteBatch _spriteBatch;
 	float _fps;
 	float _maxFPS;
 	float _frameTime;

@@ -38,7 +38,7 @@ namespace GameEngine
 		}
 
 	private:
-		int screenWidth, screenHeight;
+		int _screenWidth, _screenHeight;
 		bool needsMatrixUpdate;
 		float scale;
 		glm::vec2 position;

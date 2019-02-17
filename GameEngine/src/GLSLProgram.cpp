@@ -74,7 +74,7 @@ namespace GameEngine
 		glUseProgram(_programID);
 		for (int i = 0; i < _numAttributes; i++)
 		{
-			GLError(glEnableVertexAttribArray(i));
+			glEnableVertexAttribArray(i);
 		}
 	}
 	void GLSLProgram::unuse()
@@ -82,7 +82,7 @@ namespace GameEngine
 		glUseProgram(0);
 		for (int i = 0; i < _numAttributes; i++)
 		{
-			GLError(glDisableVertexAttribArray(i));
+			glDisableVertexAttribArray(i);
 		}
 	}
 
