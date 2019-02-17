@@ -141,15 +141,18 @@ void maingame:: drawGame()
 
 	glm::vec4 pos(0.0f, 0.0f, 50.0f, 50.0f);
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
-	GLError(GameEngine::GLTexture texture = GameEngine::ResourceManager::getTexture("textures/screenshot2_0.png"));
+	GLError(static GameEngine::GLTexture texture = GameEngine::ResourceManager::getTexture("textures/screenshot2_0.png"));
 	GameEngine::Color color;
 	color.r = 255;
 	color.g = 255;
 	color.b = 255;
 	color.a = 255;
 
-	_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
-
+	for (int i = 0; i < 1000; i++)
+	{
+		_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
+		_spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
+	}
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
 

@@ -26,7 +26,7 @@ namespace GameEngine
 	{
 	public:
 		RenderBatch(GLuint Offset,GLuint Numvertices,GLuint texture):OffSet(Offset),
-			NumVertices(NumVertices),
+			NumVertices(Numvertices),
 			Texture(texture) {}
 		GLuint OffSet;
 		GLuint NumVertices;

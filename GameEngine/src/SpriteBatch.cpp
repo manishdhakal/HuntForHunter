@@ -21,6 +21,10 @@ namespace GameEngine
 	{
 		_SortType = SortType;
 		RenderBatches.clear();
+		for (int i = 0; i < Glyphs.size(); i++)
+		{
+			delete Glyphs[i];
+		}
 		Glyphs.clear();
 	}
 	void SpriteBatch::end()
