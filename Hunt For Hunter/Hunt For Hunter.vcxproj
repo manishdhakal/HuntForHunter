@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{672C20E2-1307-45F3-8763-7FB36FE09091}</ProjectGuid>
-    <RootNamespace>Game</RootNamespace>
+    <ProjectGuid>{24A0B638-C3E3-44FC-94B6-5DEEC69592AB}</ProjectGuid>
+    <RootNamespace>HuntForHunter</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,53 +70,51 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\Game\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Game\intermediates\$(platform)\$(configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Game\Dependencies\SDL2\include;$(SolutionDir)Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\Game\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Game\intermediates\$(platform)\$(configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Game\Dependencies\SDL2\include;$(SolutionDir)Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Dependencies\SDL2\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)bin\HuntForHunter\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\HuntForHunter\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\Game\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Game\intermediates\$(platform)\$(configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Game\Dependencies\SDL2\include;$(SolutionDir)Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Dependencies\SDL2\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)bin\HuntForHunter\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\HuntForHunter\intermediates\$(platform)\$(configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Dependencies\SDL2\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)bin\HuntForHunter\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\HuntForHunter\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\Game\$(platform)\$(configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\Game\intermediates\$(platform)\$(configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Game\Dependencies\SDL2\include;$(SolutionDir)Game\Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)GameEngine\src;$(SolutionDir)Dependencies\SDL2\include;$(SolutionDir)Dependencies\GLEW\include\GL;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)bin\HuntForHunter\$(platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\HuntForHunter\intermediates\$(platform)\$(configuration)\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Game\src;$(SolutionDir)Dependencies\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> GLEW_STATIC</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameEngine\x64\Debug;$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Game\src;$(SolutionDir)Dependencies\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameEngine\x64\Debug;$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)bin\GameEngine\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)bin\GameEngine\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,15 +125,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Game\src;$(SolutionDir)Dependencies\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameEngine\x64\Debug;$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)bin\GameEngine\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,24 +143,31 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include\GL;$(SolutionDir)Game\src;$(SolutionDir)Dependencies\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions> GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameEngine\x64\Debug;$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)bin\GameEngine\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\fireWeapon.cpp" />
+    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\Saviour.cpp" />
+    <ClCompile Include="src\Animal.cpp" />
+    <ClCompile Include="src\Poachers.cpp" />
+    <ClCompile Include="src\Agent.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maingame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\fireWeapon.h" />
+    <ClInclude Include="src\Level.h" />
+    <ClInclude Include="src\Saviour.h" />
+    <ClInclude Include="src\Animal.h" />
+    <ClInclude Include="src\Poachers.h" />
+    <ClInclude Include="src\Agent.h" />
     <ClInclude Include="src\maingame.h" />
   </ItemGroup>
   <ItemGroup>

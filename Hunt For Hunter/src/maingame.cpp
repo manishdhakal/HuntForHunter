@@ -1,20 +1,13 @@
 #include "maingame.h"
 #include "Common.h"
 #include <iostream>
-#include <iostream>
 #include <string>
 #include "glm.hpp"
-#include "ResourceManager.h"
 
-
-maingame::maingame() :
-	_screenWidth(1024),
-	_screenHeight(768),
-	_time(0.0f),
-	_gameState(GameState::PLAY),
-	_maxFPS(60.0f)
+maingame::maingame() 
+	
 {
-	camera.init(_screenWidth, _screenHeight);
+	
 	
 }
 
@@ -24,34 +17,36 @@ maingame::~maingame()
 }
 void maingame::run()
 {
-
-	initSystems();
+	//initSystems();
+	_levels.push_back(new Level("Levels/level1.txt"));
+	int a;
+	std::cin >>a;
 	
-	gameLoop();
+	//gameLoop();
 
 }
 void maingame::initSystems()
 {
-	GameEngine::init();
+	/*GameEngine::init();
 	_window.create("Game Engine", _screenWidth, _screenHeight,0);
 
 	initShaders();
 	_spriteBatch.init();
-	fpsLimiterObj.init(_maxFPS);
+	fpsLimiterObj.init(_maxFPS);  */
 }
 void maingame::initShaders()
 {
-	_colorProgram.compileShaders("shaders/colorShading.vert.txt", "shaders/colorShading.frag.txt");
+	/*_colorProgram.compileShaders("shaders/colorShading.vert.txt", "shaders/colorShading.frag.txt");
 	_colorProgram.addAttribute("vertexPosition");
 	_colorProgram.addAttribute("vertexColor");
 	_colorProgram.addAttribute("vertexUV");
-	_colorProgram.linkShaders();
+	_colorProgram.linkShaders();  */
 }
 
 
 void maingame::gameLoop()
 {
-	while (_gameState != GameState::EXIT)
+	/*while (_gameState != GameState::EXIT)
 	{
 		fpsLimiterObj.beginFrame();
 		
@@ -84,12 +79,12 @@ void maingame::gameLoop()
 
 		}
 
-	}
+	} */
 }
 
 void maingame::processInput()
 {
-	SDL_Event evnt;
+	/*SDL_Event evnt;
 	const float CameraSpeed = 20.0f;
 	const float ScaleSpeed = 0.1f;
 
@@ -146,11 +141,12 @@ void maingame::processInput()
 		direction = glm::normalize(direction);
 
 		bullets.emplace_back(playerPosition, direction, 5.0f, 1000);
-	}
+	}  */
 }
 
 void maingame:: drawGame()
 {
+	/*
 
 	GLError(glClearDepth(1.0));
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -177,7 +173,7 @@ void maingame:: drawGame()
 	color.b = 255;
 	color.a = 255;
 
-	_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
+	_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);  
 	//_spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
 	for (int i = 0; i < bullets.size(); i++) {
 		bullets[i].draw(_spriteBatch);
@@ -189,8 +185,7 @@ void maingame:: drawGame()
 	
 	GLError(glBindTexture(GL_TEXTURE_2D,0));
 	_colorProgram.unuse();
-	_window.swapBuffer();
-	
+	_window.swapBuffer();  */
 
 }
 
