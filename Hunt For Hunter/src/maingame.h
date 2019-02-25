@@ -13,6 +13,8 @@
 //#include "fireWeapon.h"
 #include "Level.h"
 
+#include"Saviour.h"
+
  enum class GameState {PLAY,EXIT}; 
 class maingame
 {
@@ -23,6 +25,8 @@ public:
 private:
 	
 	void initSystems();
+	void initLevel();
+
 	void initShaders();
 	void gameLoop();
 	void processInput();
@@ -41,6 +45,8 @@ private:
 
 	GameEngine::Camera2D camera;
 
+	GameEngine::SpriteBatch _agentSpriteBatch;
+
 	GameEngine::SpriteBatch _spriteBatch;
 
 	GameEngine::keyHandler keyHandlerObj;
@@ -49,6 +55,11 @@ private:
 
 	int _fps;
 	
+	int _currentLevel;
+
+	Saviour* _saviour;
+	std::vector<Animal*> _animals;
+
 	GameState _gameState;
 	
 };

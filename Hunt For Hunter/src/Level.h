@@ -12,13 +12,23 @@ public:
 
 	void draw();
 
+	glm::vec2 getStartSaviourPos() const
+	{
+		return _startSaviourPos;
+	}
+
+	const std::vector<glm::vec2>& getStartPoacherPos() const
+	{
+		return _poacherStartPosition;
+	}
+
 private:
 	std::vector<std::string> _leveldata;
 	int _numhumans;
 	GameEngine::SpriteBatch _spriteBatch;
 
 	//GameEngine::ResourceManager* resourceManager;
-	glm::ivec2 _startPlayerPos;
-	std::vector<glm::ivec2> _zombieStartPosition;
+	glm::ivec2 _startSaviourPos;
+	std::vector<glm::vec2> _poacherStartPosition;
 };
 

@@ -22,6 +22,10 @@ Level::Level(const std::string &fileName)
 
      _leveldata.push_back(temp);
 	}
+
+
+
+	_spriteBatch.init();
 	_spriteBatch.begin();
 	glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
 	GameEngine::Color wcolor;
@@ -47,21 +51,21 @@ Level::Level(const std::string &fileName)
 			case 'R':
 				_spriteBatch.draw(destRect,
 					uvRect,
-					GameEngine::ResourceManager::getTexture("textures/red_bricks.png").id,
+					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
 					0.0f,
 					wcolor);
 				break;
 			case 'G':
 				_spriteBatch.draw(destRect,
 					uvRect,
-					GameEngine::ResourceManager::getTexture("textures/red_bricks.png").id,
+					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
 					0.0f,
 					wcolor);
 				break;
 			case 'L':
 				_spriteBatch.draw(destRect,
 					uvRect,
-					GameEngine::ResourceManager::getTexture("textures/red_bricks.png").id,
+					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
 					0.0f,
 					wcolor);
 				break;
@@ -70,13 +74,13 @@ Level::Level(const std::string &fileName)
 				break;
 			case '@':
 				//_levelData[i][x] = '.';
-				_startPlayerPos.x = x * TILE_WIDTH;
-				_startPlayerPos.y = y * TILE_WIDTH;
+				_startSaviourPos.x = x * TILE_WIDTH;
+				_startSaviourPos.y = y * TILE_WIDTH;
 				break;
 			case 'Z':
 				
 				//_levelData[][x] = '.';
-				_zombieStartPosition.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+				_poacherStartPosition.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
 				break;
 			case '.':
 				break;

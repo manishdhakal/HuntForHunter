@@ -16,6 +16,7 @@ namespace GameEngine
 	void SpriteBatch::init()
 	{
 		CreateVertexArray();
+		
 	}
 	void SpriteBatch:: begin(GlyphSortType SortType)
 	{

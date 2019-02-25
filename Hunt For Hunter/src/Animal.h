@@ -1,8 +1,10 @@
 #pragma once
-class Animal
+#include"Agent.h"
+class Animal:public Agent
 {
 public:
 	Animal();
-	~Animal();
+	virtual ~Animal();
+
 };
 

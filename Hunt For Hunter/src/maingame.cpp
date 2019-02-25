@@ -10,6 +10,7 @@ maingame::maingame() :
 	_screenWidth(1024),
 	_screenHeight(768),
 	_fps(0),
+	_saviour(nullptr),
 	_gameState(GameState::PLAY)
 	
 {
@@ -28,6 +29,7 @@ maingame::~maingame()
 void maingame::run()
 {
 	initSystems();
+	initLevel();
 	gameLoop();
 	
 }
@@ -35,12 +37,30 @@ void maingame::initSystems()
 {
 	GameEngine::init();
 	_window.create("Hunt For  Hunter", _screenWidth, _screenHeight,0);
-	//glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+	glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
 	initShaders();
+
+	_agentSpriteBatch.init();
 	
-	_levels.push_back(new Level("Levels/level1.txt"));
+	camera.init(_screenWidth, _screenHeight);
+
+	
 
 }
+
+void maingame::initLevel()
+{
+	_levels.push_back(new Level("Levels/level1.txt"));
+
+	_currentLevel = 0;
+	_saviour = new Saviour();
+	_saviour->init(1.0f, _levels[_currentLevel]->getStartSaviourPos());
+
+	_animals.push_back(_saviour);
+
+
+}
+
 void maingame::initShaders()
 {
 	_textureProgram.compileShaders("shaders/colorShading.vert.txt", "shaders/colorShading.frag.txt");
@@ -59,8 +79,8 @@ void maingame::gameLoop()
     {
 		fpsLimiter.beginFrame();
 
-		//processInput();
-
+		processInput();
+		camera.update();
 		drawGame();
 
 
@@ -107,7 +127,7 @@ void maingame::gameLoop()
 
 void maingame::processInput()
 {
-	/*SDL_Event evnt;
+	SDL_Event evnt;
 	const float CameraSpeed = 20.0f;
 	const float ScaleSpeed = 0.1f;
 
@@ -153,7 +173,7 @@ void maingame::processInput()
 	if (keyHandlerObj.iskeyPressed(SDLK_p))
 		camera.setScale(camera.getScale() - ScaleSpeed);
 
-	if (keyHandlerObj.iskeyPressed(SDL_BUTTON_LEFT)) {
+	/*if (keyHandlerObj.iskeyPressed(SDL_BUTTON_LEFT)) {
 		glm::vec2 mouseCoordinates = keyHandlerObj.getMouseCoordinates();
 		mouseCoordinates = camera.ScreenToWorldCoordinates(mouseCoordinates);
 		std::cout << mouseCoordinates.x << "  " << mouseCoordinates.y << '\n';
@@ -173,41 +193,30 @@ void maingame:: drawGame()
 
 	GLError(glClearDepth(1.0));
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-	/*
-	_colorProgram.use();
-	GLError(glActiveTexture(GL_TEXTURE0));
-	//glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
-	GLint textureLocation = _colorProgram.getUniformLocation("mySampler");
-	GLError(glUniform1i(textureLocation, 0));
 	
-	GLuint pLocation = _colorProgram.getUniformLocation("P");
-	glm::mat4 CameraMatrix = camera.getcameraMatrix();
+	_textureProgram.use();
 
-	GLError(glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(CameraMatrix[0][0])));
+	glActiveTexture(GL_TEXTURE0);
+	GLint textureUniform = _textureProgram.getUniformLocation("mySampler");
+	glUniform1i(textureUniform, 0);
 
-	_spriteBatch.begin();
+	glm::mat4 projectionMatrix = camera.getcameraMatrix();
+	GLint pUniform = _textureProgram.getUniformLocation("P");
 
-	glm::vec4 pos(0.0f, 0.0f, 50.0f, 50.0f);
-	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
-	GLError(static GameEngine::GLTexture texture = GameEngine::ResourceManager::getTexture("textures/player.png"));
-	GameEngine::Color color;
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
-	color.a = 255;
+	glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
 
-	_spriteBatch.draw(pos, uv, texture.id, 0.0f, color);  
-	//_spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
-	for (int i = 0; i < bullets.size(); i++) {
-		bullets[i].draw(_spriteBatch);
+	_levels[_currentLevel]->draw();
+
+	_agentSpriteBatch.begin();
+
+	for (int i = 0; i < _animals.size(); i++)
+	{
+		_animals[i]->draw(_agentSpriteBatch);
 	}
-	
-	
-	_spriteBatch.end();
-	_spriteBatch.renderBatch();
-	
-	GLError(glBindTexture(GL_TEXTURE_2D,0));
-	_colorProgram.unuse();*/
+	_agentSpriteBatch.end();
+	_agentSpriteBatch.renderBatch();
+	_textureProgram.unuse();
+
 	_window.swapBuffer();  
 
 }

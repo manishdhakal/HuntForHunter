@@ -47,6 +47,7 @@ namespace GameEngine
 	private:
 		void CreateRenderBatches();
 		void  CreateVertexArray();
+		
 		void SortGlyphs();
 		static bool CompareFrontToBack(Glyph* a, Glyph* b);
 		static bool CompareBackToFront(Glyph* a, Glyph* b);
