@@ -12,6 +12,11 @@ public:
 
 	void draw();
 
+	const std::vector<std::string>& getLevelData() const
+	{
+		return _leveldata;
+	}
+
 	glm::vec2 getStartSaviourPos() const
 	{
 		return _startSaviourPos;

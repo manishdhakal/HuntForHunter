@@ -15,6 +15,8 @@
 
 #include"Saviour.h"
 
+class Poachers;
+
  enum class GameState {PLAY,EXIT}; 
 class maingame
 {
@@ -62,6 +64,8 @@ private:
 
 	Saviour* _saviour;
 	std::vector<Animal*> _animals;
+	std::vector<Poachers*> _poachers;
+
 
 	GameState _gameState;
 	

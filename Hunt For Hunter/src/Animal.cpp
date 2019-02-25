@@ -11,7 +11,9 @@ Animal::~Animal()
 {
 }
 
-void Animal::update()
+void Animal::update(const std::vector<std::string>& levelData,
+	std::vector<Animal*>& animals,
+	std::vector <Poachers*>& poachers)
 {
 
 }

@@ -24,7 +24,9 @@ void Saviour::init(float speed, glm::vec2 pos, GameEngine::keyHandler* keyHandle
 
 }
 
-void Saviour::update()
+void Saviour::update(const std::vector<std::string>& levelData,
+	std::vector<Animal*>& animals,
+	std::vector <Poachers*>& poachers)
 {
 	if (_keyHandler->iskeyPressed(SDLK_w))
 	{
@@ -42,4 +44,7 @@ void Saviour::update()
 	{
 		_position.x += _speed;
 	}
+
+	CollideWithLevel(levelData);
+
 }

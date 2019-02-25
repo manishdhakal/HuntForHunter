@@ -9,7 +9,9 @@ public:
 
 	void init(float speed,glm::vec2 pos, GameEngine::keyHandler* keyHandler);
 
-	void update();
+	void update(const std::vector<std::string>& levelData,
+		std::vector<Animal*>& animals,
+		std::vector <Poachers*>& poachers);
 private:
 	GameEngine::keyHandler* _keyHandler;
 

@@ -79,11 +79,12 @@ Level::Level(const std::string &fileName)
 
 
 			case '@':
-				//_levelData[i][x] = '.';
+				_leveldata[y][x] = '.';
 				_startSaviourPos.x = x * TILE_WIDTH;
 				_startSaviourPos.y = y * TILE_WIDTH;
 				break;
 			case 'Z':
+				_leveldata[y][x] = '.';
 
 				//_levelData[][x] = '.';
 				/*_spriteBatch.draw(destRect,

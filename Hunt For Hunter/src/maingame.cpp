@@ -6,7 +6,7 @@
 #include"GameEngine.h"
 #include "glm.hpp"
 //#include"Saviour.h"
-
+#include"Poachers.h"
 maingame::maingame() :
 	_screenWidth(1024),
 	_screenHeight(768),
@@ -134,7 +134,9 @@ void maingame::updateAgents()
 {
 	for (int i = 0; i < _animals.size(); i++)
 	{
-		_animals[i]->update();
+		_animals[i]->update(_levels[_currentLevel]->getLevelData(),
+			_animals,
+			_poachers);
 	}
 }
 
