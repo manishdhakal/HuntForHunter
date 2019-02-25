@@ -1,4 +1,4 @@
-Humans: 1000
+Humans: 10
 RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 R..............................................................................................................R
 R.@............................................................................................................R

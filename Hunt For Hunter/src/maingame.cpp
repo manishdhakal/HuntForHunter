@@ -2,9 +2,15 @@
 #include "Common.h"
 #include <iostream>
 #include <string>
+#include <timing.h>
+#include"GameEngine.h"
 #include "glm.hpp"
 
-maingame::maingame() 
+maingame::maingame() :
+	_screenWidth(1024),
+	_screenHeight(768),
+	_fps(0),
+	_gameState(GameState::PLAY)
 	
 {
 	
@@ -14,38 +20,55 @@ maingame::maingame()
 
 maingame::~maingame()
 {
+	for (int i = 0; i < _levels.size(); i++)
+	{
+		delete _levels[i];
+	}
 }
 void maingame::run()
 {
-	//initSystems();
-	_levels.push_back(new Level("Levels/level1.txt"));
-	int a;
-	std::cin >>a;
+	initSystems();
+	gameLoop();
 	
-	//gameLoop();
-
 }
 void maingame::initSystems()
 {
-	/*GameEngine::init();
-	_window.create("Game Engine", _screenWidth, _screenHeight,0);
-
+	GameEngine::init();
+	_window.create("Hunt For  Hunter", _screenWidth, _screenHeight,0);
+	//glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
 	initShaders();
-	_spriteBatch.init();
-	fpsLimiterObj.init(_maxFPS);  */
+	
+	_levels.push_back(new Level("Levels/level1.txt"));
+
 }
 void maingame::initShaders()
 {
-	/*_colorProgram.compileShaders("shaders/colorShading.vert.txt", "shaders/colorShading.frag.txt");
-	_colorProgram.addAttribute("vertexPosition");
-	_colorProgram.addAttribute("vertexColor");
-	_colorProgram.addAttribute("vertexUV");
-	_colorProgram.linkShaders();  */
+	_textureProgram.compileShaders("shaders/colorShading.vert.txt", "shaders/colorShading.frag.txt");
+	_textureProgram.addAttribute("vertexPosition");
+	_textureProgram.addAttribute("vertexColor");
+	_textureProgram.addAttribute("vertexUV");
+	_textureProgram.linkShaders();
 }
 
 
 void maingame::gameLoop()
 {
+	GameEngine::FpsLimiter fpsLimiter;
+	fpsLimiter.setMaxFPS(60.0f);
+	while (_gameState == GameState::PLAY)
+    {
+		fpsLimiter.beginFrame();
+
+		//processInput();
+
+		drawGame();
+
+
+		 _fps=fpsLimiter.endFrame();
+
+
+
+	}
 	/*while (_gameState != GameState::EXIT)
 	{
 		fpsLimiterObj.beginFrame();
@@ -146,11 +169,11 @@ void maingame::processInput()
 
 void maingame:: drawGame()
 {
-	/*
+	
 
 	GLError(glClearDepth(1.0));
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-	
+	/*
 	_colorProgram.use();
 	GLError(glActiveTexture(GL_TEXTURE0));
 	//glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
@@ -184,8 +207,8 @@ void maingame:: drawGame()
 	_spriteBatch.renderBatch();
 	
 	GLError(glBindTexture(GL_TEXTURE_2D,0));
-	_colorProgram.unuse();
-	_window.swapBuffer();  */
+	_colorProgram.unuse();*/
+	_window.swapBuffer();  
 
 }
 

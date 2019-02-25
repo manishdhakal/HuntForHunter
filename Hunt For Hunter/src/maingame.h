@@ -30,24 +30,26 @@ private:
 	
 	int _screenWidth;
 	int _screenHeight;
+
+
 	float _time;
 	GameEngine::Windows _window;
-	GameState _gameState;
 	
-	GameEngine::GLSLProgram _colorProgram;
+	
+	GameEngine::GLSLProgram _textureProgram;
+
 
 	GameEngine::Camera2D camera;
 
 	GameEngine::SpriteBatch _spriteBatch;
 
 	GameEngine::keyHandler keyHandlerObj;
-	//GameEngine::FpsLimiter fpsLimiterObj;
-
-	//std::vector<fireWeapon> bullets;
-
-	//float _fps;
-	//float _maxFPS;
+	
 	std::vector<Level*> _levels;
+
+	int _fps;
+	
+	GameState _gameState;
 	
 };
 
