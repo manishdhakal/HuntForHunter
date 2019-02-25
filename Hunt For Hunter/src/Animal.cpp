@@ -10,3 +10,8 @@ Animal::Animal()
 Animal::~Animal()
 {
 }
+
+void Animal::update()
+{
+
+}

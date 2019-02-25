@@ -29,6 +29,9 @@ private:
 
 	void initShaders();
 	void gameLoop();
+
+	void updateAgents();
+
 	void processInput();
 	void drawGame();
 	
@@ -49,11 +52,11 @@ private:
 
 	GameEngine::SpriteBatch _spriteBatch;
 
-	GameEngine::keyHandler keyHandlerObj;
+	GameEngine::keyHandler _keyHandler ;
 	
 	std::vector<Level*> _levels;
 
-	int _fps;
+	float _fps;
 	
 	int _currentLevel;
 

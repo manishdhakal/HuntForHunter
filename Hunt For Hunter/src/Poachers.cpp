@@ -10,3 +10,9 @@ Poachers::Poachers()
 Poachers::~Poachers()
 {
 }
+
+void Poachers::update()
+{
+
+}
+

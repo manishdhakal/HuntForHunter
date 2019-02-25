@@ -6,5 +6,8 @@ public:
 	Animal();
 	virtual ~Animal();
 
+	virtual void update();
+
+
 };
 

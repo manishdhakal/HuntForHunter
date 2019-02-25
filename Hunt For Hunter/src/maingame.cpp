@@ -5,6 +5,7 @@
 #include <timing.h>
 #include"GameEngine.h"
 #include "glm.hpp"
+//#include"Saviour.h"
 
 maingame::maingame() :
 	_screenWidth(1024),
@@ -54,7 +55,7 @@ void maingame::initLevel()
 
 	_currentLevel = 0;
 	_saviour = new Saviour();
-	_saviour->init(1.0f, _levels[_currentLevel]->getStartSaviourPos());
+	_saviour->init(4.0f, _levels[_currentLevel]->getStartSaviourPos(), &_keyHandler);
 
 	_animals.push_back(_saviour);
 
@@ -80,6 +81,10 @@ void maingame::gameLoop()
 		fpsLimiter.beginFrame();
 
 		processInput();
+		//_saviour->update();
+		updateAgents();
+		camera.setPosition(_saviour->getposition());
+
 		camera.update();
 		drawGame();
 
@@ -125,6 +130,15 @@ void maingame::gameLoop()
 	} */
 }
 
+void maingame::updateAgents()
+{
+	for (int i = 0; i < _animals.size(); i++)
+	{
+		_animals[i]->update();
+	}
+}
+
+
 void maingame::processInput()
 {
 	SDL_Event evnt;
@@ -139,38 +153,38 @@ void maingame::processInput()
 				_gameState = GameState::EXIT;
 				break;
 			case SDL_MOUSEMOTION:
-				keyHandlerObj.setMouseCoordinates(evnt.motion.x, evnt.motion.y);
+				_keyHandler.setMouseCoordinates(evnt.motion.x, evnt.motion.y);
 				break;
 			case SDL_KEYDOWN:
-				keyHandlerObj.keyPress(evnt.key.keysym.sym);
+				_keyHandler.keyPress(evnt.key.keysym.sym);
 				break;
 			case  SDL_KEYUP:
-				keyHandlerObj.keyRelease(evnt.key.keysym.sym);
+				_keyHandler.keyRelease(evnt.key.keysym.sym);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				keyHandlerObj.keyPress(evnt.button.button);
+				_keyHandler.keyPress(evnt.button.button);
 				break;
 			case SDL_MOUSEBUTTONUP:
-				keyHandlerObj.keyRelease(evnt.button.button);
+				_keyHandler.keyRelease(evnt.button.button);
 				break; 
 		}
 	}
 
-	if (keyHandlerObj.iskeyPressed( SDLK_w))
+	if (_keyHandler.iskeyPressed( SDLK_w))
 		camera.setPosition(camera.getPosition() + glm::vec2(0.0f, CameraSpeed));
 
-	if (keyHandlerObj.iskeyPressed( SDLK_s))
+	if (_keyHandler.iskeyPressed( SDLK_s))
 		camera.setPosition(camera.getPosition() - glm::vec2(0.0f, CameraSpeed));
 	
-	if (keyHandlerObj.iskeyPressed( SDLK_a))
+	if (_keyHandler.iskeyPressed( SDLK_a))
 		camera.setPosition(camera.getPosition() + glm::vec2(-CameraSpeed, 0.0f));
-	if (keyHandlerObj.iskeyPressed( SDLK_d))
+	if (_keyHandler.iskeyPressed( SDLK_d))
 		camera.setPosition(camera.getPosition() + glm::vec2(CameraSpeed, 0.0f));
 		
-	if (keyHandlerObj.iskeyPressed( SDLK_q))
+	if (_keyHandler.iskeyPressed( SDLK_q))
 		camera.setScale(camera.getScale() + ScaleSpeed);
 		
-	if (keyHandlerObj.iskeyPressed(SDLK_p))
+	if (_keyHandler.iskeyPressed(SDLK_p))
 		camera.setScale(camera.getScale() - ScaleSpeed);
 
 	/*if (keyHandlerObj.iskeyPressed(SDL_BUTTON_LEFT)) {
