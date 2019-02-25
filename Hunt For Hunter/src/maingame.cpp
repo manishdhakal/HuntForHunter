@@ -38,7 +38,7 @@ void maingame::initSystems()
 {
 	GameEngine::init();
 	_window.create("Hunt For  Hunter", _screenWidth, _screenHeight,0);
-	glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+	glClearColor(0.0f, 0.41f, 0.0f, 0.0f);
 	initShaders();
 
 	_agentSpriteBatch.init();

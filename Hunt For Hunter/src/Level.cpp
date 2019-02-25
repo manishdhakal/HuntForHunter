@@ -47,6 +47,64 @@ Level::Level(const std::string &fileName)
 
 			// Process the tile
 			switch (tile) {
+
+			case 'R':
+				_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/river.png").id,
+					0.0f,
+					wcolor);
+				break;
+			case 'G':
+				_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/log.png").id,
+					0.0f,
+					wcolor);
+				break;
+			case 'L':
+				_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
+					0.0f,
+					wcolor);
+				break;
+			case 'B':
+				_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/red_bricks.png").id,
+					0.0f,
+					wcolor);
+				break;
+
+
+			case '@':
+				//_levelData[i][x] = '.';
+				_startSaviourPos.x = x * TILE_WIDTH;
+				_startSaviourPos.y = y * TILE_WIDTH;
+				break;
+			case 'Z':
+
+				//_levelData[][x] = '.';
+				/*_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/poachers.png").id,
+					0.0f,
+					wcolor);*/
+				_poacherStartPosition.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
+				break;
+			case '.':
+				_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/grass.jfif").id,
+					0.0f,
+					wcolor);
+
+				break;
+			default:
+				std::printf("Unexpected symbol %c at (%d,%d)", tile, x, y);
+				break;
+			/*switch (tile) {
 			
 			case 'R':
 				_spriteBatch.draw(destRect,
@@ -86,7 +144,7 @@ Level::Level(const std::string &fileName)
 				break;
 			default:
 				std::printf("Unexpected symbol %c at (%d,%d)", tile, x, y);
-				break;
+				break;*/
 			}
 		}
 	}

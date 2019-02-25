@@ -11,11 +11,11 @@ Saviour::~Saviour()
 {
 }
 
-void Saviour::init(float speed, glm::vec2 pos, GameEngine::keyHandler* _keyHandler)
+void Saviour::init(float speed, glm::vec2 pos, GameEngine::keyHandler* keyHandler)
 {
 	_speed = speed;
 	_position = pos;
-	_keyHandler = _keyHandler;
+	_keyHandler = keyHandler;
 	_color.r = 242;
 	_color.g = 147;
 	_color.b = 106;
@@ -28,11 +28,11 @@ void Saviour::update()
 {
 	if (_keyHandler->iskeyPressed(SDLK_w))
 	{
-		_position.y -= _speed;
+		_position.y += _speed;
 	}
 	else if (_keyHandler->iskeyPressed(SDLK_s))
 	{
-		_position.y += _speed;
+		_position.y -= _speed;
 	}
 	if (_keyHandler->iskeyPressed(SDLK_a))
 	{

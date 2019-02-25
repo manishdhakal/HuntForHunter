@@ -7,7 +7,7 @@ public:
 	Saviour();
 	~Saviour();
 
-	void init(float speed,glm::vec2 pos, GameEngine::keyHandler* _keyHandler);
+	void init(float speed,glm::vec2 pos, GameEngine::keyHandler* keyHandler);
 
 	void update();
 private:

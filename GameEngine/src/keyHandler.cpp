@@ -20,7 +20,8 @@ namespace GameEngine {
 	}
 
    	bool keyHandler::iskeyPressed(unsigned int keyID) {
-		auto it = keyMap.find(keyID);
+		if (keyMap.empty()) return false;
+		const auto& it = keyMap.find(keyID);
 		if (it != keyMap.end())
 			return it->second;
 		else
