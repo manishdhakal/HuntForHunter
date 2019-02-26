@@ -66,7 +66,6 @@ void maingame::initLevel()
 	 std::uniform_int_distribution<int> randY(1, _levels[_currentLevel]->getHeight() - 2);
 
 	 const float ANIMAL_SPEED = 1.0f;
-
 	for (int i = 0; i < _levels[_currentLevel]->getNumAnimals(); i++)
 	{
 		_animals.push_back(new Animal);
@@ -244,7 +243,7 @@ void maingame:: drawGame()
 
 	for (int i = 0; i < _animals.size(); i++)
 	{
-		_animals[i]->draw(_agentSpriteBatch);
+		_animals[i]->draw(_agentSpriteBatch, i);
 	}
 	_agentSpriteBatch.end();
 	_agentSpriteBatch.renderBatch();

@@ -44,10 +44,30 @@ void Agent::CollideWithLevel(const std::vector<std::string>& levelData)
 }
 
 
-void Agent::draw(GameEngine::SpriteBatch& _spriteBatch)
+void Agent::draw(GameEngine::SpriteBatch& _spriteBatch, int i)
 {
 	glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
-	int textureID = GameEngine::ResourceManager::getTexture(std::string("textures/sprites/") + spriteFile).id;
+	int textureID;
+	if ( i==0 )
+		 textureID = GameEngine::ResourceManager::getTexture(std::string("textures/sprites/") + spriteFile).id;
+	else if (i >= 1 && i <= 10)
+		textureID = GameEngine::ResourceManager::getTexture("textures/pig.png").id;
+	else if (i >= 11 && i <= 20)
+		textureID = GameEngine::ResourceManager::getTexture("textures/red_bricks.png").id;
+	else if (i >= 21 && i <= 30)
+		textureID = GameEngine::ResourceManager::getTexture("textures/river.png").id;
+	else if (i >= 31 && i <= 40)
+		textureID = GameEngine::ResourceManager::getTexture("textures/tiger.png").id;
+	else if (i >= 41 && i <= 50)
+		textureID = GameEngine::ResourceManager::getTexture("textures/player.png").id;
+	else if (i >= 51 && i <= 60)
+		textureID = GameEngine::ResourceManager::getTexture("textures/log.png").id;
+	else if (i >= 61 && i <= 70)
+		textureID = GameEngine::ResourceManager::getTexture("textures/fireball.png").id;
+	else if (i >= 71 && i <= 80)
+		textureID = GameEngine::ResourceManager::getTexture("textures/bush.png").id;
+	else 
+		textureID = GameEngine::ResourceManager::getTexture("textures/fox.png").id;
 
 
 	glm::vec4 destRect;
@@ -57,6 +77,7 @@ void Agent::draw(GameEngine::SpriteBatch& _spriteBatch)
 	destRect.w = AGENT_WIDTH;
 	_spriteBatch.draw(destRect, uvRect, textureID, 0.0f, _color);
 }
+
 
 void Agent::checkTilePosition(const std::vector<std::string>& levelData,
 								std::vector<glm::vec2>& collideTilePositions,

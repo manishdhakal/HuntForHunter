@@ -22,7 +22,9 @@ public:
 
 	void CollideWithLevel(const std::vector<std::string>& levelData);
 
-	void draw( GameEngine::SpriteBatch& _spriteBatch);
+	void draw( GameEngine::SpriteBatch& _spriteBatch, int i);
+//	void draw(GameEngine::SpriteBatch& _spriteBatch, int i = 0);
+
 
 	glm::vec2 getposition() const
 	{

@@ -14,9 +14,14 @@ Animal::~Animal()
 void Animal::init(float speed, glm::vec2 pos)
 {
 
-	static std::mt19937 randomEngine;
-	randomEngine.seed(time(nullptr));
+	static std::mt19937 randomEngine(time(nullptr));
+	
 	static std::uniform_real_distribution<float> ranDir(-1.0f, 1.0f);
+
+	_color.r = 255;
+	_color.g = 255;
+	_color.b = 255;
+	_color.a = 255;
 
 	_speed = speed;
 	_position = pos;
