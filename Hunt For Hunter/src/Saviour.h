@@ -13,6 +13,7 @@ public:
 		std::vector<Animal*>& animals,
 		std::vector <Poachers*>& poachers);
 private:
+	int spriteNum;
 	GameEngine::keyHandler* _keyHandler;
 
 };

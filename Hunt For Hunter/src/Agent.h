@@ -1,6 +1,7 @@
 #pragma once
 #include<glm.hpp>
 #include"SpriteBatch.h"
+#include <string>
 //#include"Vertex.h"
 const float AGENT_WIDTH = 60;
 
@@ -41,6 +42,7 @@ protected:
 	glm::vec2 _position;
 	GameEngine::Color _color;
 	float _speed;
+	std::string spriteFile;
 
 
 

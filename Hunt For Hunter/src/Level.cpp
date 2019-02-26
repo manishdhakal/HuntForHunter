@@ -79,6 +79,11 @@ Level::Level(const std::string &fileName)
 
 
 			case '@':
+				_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/grass.jfif").id,
+					0.0f,
+					wcolor);
 				_leveldata[y][x] = '.';
 				_startSaviourPos.x = x * TILE_WIDTH;
 				_startSaviourPos.y = y * TILE_WIDTH;
