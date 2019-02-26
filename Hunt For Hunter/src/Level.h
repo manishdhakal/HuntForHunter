@@ -11,6 +11,20 @@ public:
 	~Level();
 
 	void draw();
+	int getWidth() const
+	{
+		return _leveldata[0].size();
+	}
+
+	int getHeight() const
+	{
+		return _leveldata.size();
+	}
+
+	int getNumAnimals() const
+	{
+		return _numAnimals;
+	}
 
 	const std::vector<std::string>& getLevelData() const
 	{
@@ -29,7 +43,7 @@ public:
 
 private:
 	std::vector<std::string> _leveldata;
-	int _numhumans;
+	int _numAnimals;
 	GameEngine::SpriteBatch _spriteBatch;
 
 	//GameEngine::ResourceManager* resourceManager;

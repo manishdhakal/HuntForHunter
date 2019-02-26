@@ -5,7 +5,8 @@
 #include <timing.h>
 #include"GameEngine.h"
 #include "glm.hpp"
-//#include"Saviour.h"
+#include<random>
+#include<ctime>
 #include"Poachers.h"
 maingame::maingame() :
 	_screenWidth(1024),
@@ -58,6 +59,22 @@ void maingame::initLevel()
 	_saviour->init(4.0f, _levels[_currentLevel]->getStartSaviourPos(), &_keyHandler);
 
 	_animals.push_back(_saviour);
+
+	 std::mt19937 randomEngine;
+	randomEngine.seed(time(nullptr));
+	 std::uniform_int_distribution<int> randX(1, _levels[_currentLevel]->getWidth() - 2);
+	 std::uniform_int_distribution<int> randY(1, _levels[_currentLevel]->getHeight() - 2);
+
+	 const float ANIMAL_SPEED = 1.0f;
+
+	for (int i = 0; i < _levels[_currentLevel]->getNumAnimals(); i++)
+	{
+		_animals.push_back(new Animal);
+		glm::vec2 pos(randX(randomEngine)*TILE_WIDTH, randY(randomEngine)*TILE_WIDTH);
+		_animals.back()->init(ANIMAL_SPEED, pos);
+
+
+	}
 
 
 }

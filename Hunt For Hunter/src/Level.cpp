@@ -16,7 +16,10 @@ Level::Level(const std::string &fileName)
 		GameEngine::Error(4,"Failed to open " + fileName,"Unable to open file");
 	}
 	std::string temp;
-	file >> temp >> _numhumans;
+	file >> temp >> _numAnimals;
+
+	std::getline(file, temp);
+
 	while (std::getline(file, temp))
 	{
 
