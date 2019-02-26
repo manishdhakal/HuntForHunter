@@ -79,25 +79,25 @@ void Agent::draw(GameEngine::SpriteBatch& _spriteBatch, int i)
 {
 	glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
 	int textureID;
-	if ( i==0 )
-		 textureID = GameEngine::ResourceManager::getTexture(std::string("textures/sprites/") + spriteFile).id;
-	else if (i >= 1 && i <= 10)
-		textureID = GameEngine::ResourceManager::getTexture("textures/pig.png").id;
-	else if (i >= 11 && i <= 20)
-		textureID = GameEngine::ResourceManager::getTexture("textures/red_bricks.png").id;
-	else if (i >= 21 && i <= 30)
-		textureID = GameEngine::ResourceManager::getTexture("textures/river.png").id;
-	else if (i >= 31 && i <= 40)
-		textureID = GameEngine::ResourceManager::getTexture("textures/tiger.png").id;
-	else if (i >= 41 && i <= 50)
-		textureID = GameEngine::ResourceManager::getTexture("textures/player.png").id;
-	else if (i >= 51 && i <= 60)
-		textureID = GameEngine::ResourceManager::getTexture("textures/log.png").id;
-	else if (i >= 61 && i <= 70)
-		textureID = GameEngine::ResourceManager::getTexture("textures/fireball.png").id;
-	else if (i >= 71 && i <= 80)
-		textureID = GameEngine::ResourceManager::getTexture("textures/bush.png").id;
-	else 
+	if (i == 0)
+		textureID = GameEngine::ResourceManager::getTexture(std::string("textures/sprites/") + spriteFile).id;
+	else if (i >= 5 && i <= 10)
+		textureID = GameEngine::ResourceManager::getTexture("textures/boar.png").id;
+	else if (i >= 11 && i <= 15)
+		textureID = GameEngine::ResourceManager::getTexture("textures/lion.png").id;
+	else if (i >= 16 && i <= 20)
+		textureID = GameEngine::ResourceManager::getTexture("textures/giraffe.png").id;
+	else if (i >= 21 && i <= 25)
+		textureID = GameEngine::ResourceManager::getTexture("textures/sunny.png").id;
+	else if (i >= 21 && i <= 25)
+		textureID = GameEngine::ResourceManager::getTexture("textures/zebra.png").id;
+	else if (i >= 26 && i <= 35)
+		textureID = GameEngine::ResourceManager::getTexture("textures/rhino.png").id;
+	else if (i >= 36 && i <= 40)
+		textureID = GameEngine::ResourceManager::getTexture("textures/panther.png").id;
+	else if (i >= 41 && i <= 45)
+		textureID = GameEngine::ResourceManager::getTexture("textures/bear.png").id;
+	else
 		textureID = GameEngine::ResourceManager::getTexture("textures/fox.png").id;
 
 
