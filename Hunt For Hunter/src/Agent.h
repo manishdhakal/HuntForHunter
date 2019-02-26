@@ -2,8 +2,10 @@
 #include<glm.hpp>
 #include"SpriteBatch.h"
 #include <string>
-//#include"Vertex.h"
-const float AGENT_WIDTH = 60;
+const float AGENT_WIDTH = 60.0f;
+
+const float AGENT_RADIUS = AGENT_WIDTH / 2.0f;
+
 
 class Poachers;
 class Animal;
@@ -20,7 +22,9 @@ public:
 		std::vector<Animal*>& animals,
 		std::vector <Poachers*>& poachers)=0;
 
-	void CollideWithLevel(const std::vector<std::string>& levelData);
+	bool CollideWithLevel(const std::vector<std::string>& levelData);
+
+	bool collideWithAgent(Agent* agent);
 
 	void draw( GameEngine::SpriteBatch& _spriteBatch, int i);
 //	void draw(GameEngine::SpriteBatch& _spriteBatch, int i = 0);

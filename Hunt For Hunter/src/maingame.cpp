@@ -154,6 +154,15 @@ void maingame::updateAgents()
 			_animals,
 			_poachers);
 	}
+
+	for (int i = 0; i <= _animals.size(); i++)
+	{
+		for (int j = i + 1; j < _animals.size(); j++)
+		{
+			_animals[i]->collideWithAgent(_animals[j]);
+		}
+	}
+
 }
 
 
