@@ -13,12 +13,13 @@
 
 Animal::Animal()
 {
+	_frames = 0;
 }
 
 
 Animal::~Animal() 
 {
-	_frames = 0;
+	
 }
 
 void Animal::init(float speed, glm::vec2 pos)

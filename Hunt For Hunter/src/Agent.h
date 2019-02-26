@@ -27,7 +27,7 @@ public:
 	bool collideWithAgent(Agent* agent);
 
 	void draw( GameEngine::SpriteBatch& _spriteBatch, int i);
-//	void draw(GameEngine::SpriteBatch& _spriteBatch, int i = 0);
+	void draw(GameEngine::SpriteBatch& _spriteBatch);
 
 
 	glm::vec2 getposition() const

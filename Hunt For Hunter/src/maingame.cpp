@@ -8,6 +8,12 @@
 #include<random>
 #include<ctime>
 #include"Poachers.h"
+
+
+const float ANIMAL_SPEED = 1.0f;
+
+const float POACHER_SPEED = 1.3f;
+
 maingame::maingame() :
 	_screenWidth(1024),
 	_screenHeight(768),
@@ -65,7 +71,7 @@ void maingame::initLevel()
 	 std::uniform_int_distribution<int> randX(1, _levels[_currentLevel]->getWidth() - 2);
 	 std::uniform_int_distribution<int> randY(1, _levels[_currentLevel]->getHeight() - 2);
 
-	 const float ANIMAL_SPEED = 1.0f;
+	 
 	for (int i = 0; i < _levels[_currentLevel]->getNumAnimals(); i++)
 	{
 		_animals.push_back(new Animal);
@@ -74,6 +80,18 @@ void maingame::initLevel()
 
 
 	}
+
+	const std::vector<glm::vec2>& poacherPositions = _levels[_currentLevel]->getStartPoacherPos();
+	for (int i = 0; i < poacherPositions.size(); i++)
+	{
+		_poachers.push_back(new Poachers);
+		//glm::vec2 pos(randX(randomEngine)*TILE_WIDTH, randY(randomEngine)*TILE_WIDTH);
+		_poachers.back()->init(POACHER_SPEED, poacherPositions[i]);
+
+
+	}
+
+
 
 
 }
@@ -148,6 +166,7 @@ void maingame::gameLoop()
 
 void maingame::updateAgents()
 {
+	//Update all the animals
 	for (int i = 0; i < _animals.size(); i++)
 	{
 		_animals[i]->update(_levels[_currentLevel]->getLevelData(),
@@ -155,9 +174,49 @@ void maingame::updateAgents()
 			_poachers);
 	}
 
-	for (int i = 0; i <= _animals.size(); i++)
+	//Update all the poachers
+	for (int i = 0; i < _poachers.size(); i++)
 	{
-		for (int j = i + 1; j < _animals.size(); j++)
+		_poachers[i]->update(_levels[_currentLevel]->getLevelData(),
+			_animals,
+			_poachers);
+	}
+
+
+
+
+	//Update poacher collision
+	for (int i = 0; i < _poachers.size(); i++)
+	{
+		//collide with other poachers
+		for (int j = i + 1; j < _poachers.size(); j++)
+		{
+			_poachers[i]->collideWithAgent(_poachers[j]);
+		}
+		//collide with animals
+		for (int j = 1; j < _animals.size(); j++)
+		{
+			if (_poachers[i]->collideWithAgent(_animals[j]))
+			{
+				delete _animals[j];
+				_animals[j] = _animals.back();
+				_animals.pop_back();
+			}
+		}
+		//Collision of saviour and poachers 
+		if (_poachers[i]->collideWithAgent(_saviour))
+		{
+			GameEngine::Error(100, "!!!YOU LOSE !!!", "Poacher killed you.");
+		}
+
+	}
+
+	//Update animals collision
+
+	for (int i = 0; i < _animals.size(); i++)
+	{
+		// Collide with other animals
+		for (int j = i+1; j < _animals.size(); j++)
 		{
 			_animals[i]->collideWithAgent(_animals[j]);
 		}
@@ -254,6 +313,12 @@ void maingame:: drawGame()
 	{
 		_animals[i]->draw(_agentSpriteBatch, i);
 	}
+
+	for (int i = 0; i < _poachers.size(); i++)
+	{
+		_poachers[i]->draw(_agentSpriteBatch);
+	}
+
 	_agentSpriteBatch.end();
 	_agentSpriteBatch.renderBatch();
 	_textureProgram.unuse();

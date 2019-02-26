@@ -109,6 +109,20 @@ void Agent::draw(GameEngine::SpriteBatch& _spriteBatch, int i)
 	_spriteBatch.draw(destRect, uvRect, textureID, 0.0f, _color);
 }
 
+void Agent::draw(GameEngine::SpriteBatch& _spriteBatch)
+{
+	glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
+	int textureID = GameEngine::ResourceManager::getTexture("textures/player.png").id;
+	
+
+	glm::vec4 destRect;
+	destRect.x = _position.x;
+	destRect.y = _position.y;
+	destRect.z = AGENT_WIDTH;
+	destRect.w = AGENT_WIDTH;
+	_spriteBatch.draw(destRect, uvRect, textureID, 0.0f, _color);
+}
+
 
 void Agent::checkTilePosition(const std::vector<std::string>& levelData,
 								std::vector<glm::vec2>& collideTilePositions,
