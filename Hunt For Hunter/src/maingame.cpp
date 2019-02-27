@@ -388,7 +388,7 @@ void maingame::processInput()
 {
 	SDL_Event evnt;
 	const float CameraSpeed = 20.0f;
-	const float ScaleSpeed = 0.1f;
+	const float ScaleSpeed = 0.05f;
 
 	while (SDL_PollEvent(&evnt))
 	{
@@ -429,9 +429,10 @@ void maingame::processInput()
 	if (_keyHandler.iskeyPressed( SDLK_q))
 		camera.setScale(camera.getScale() + ScaleSpeed);
 		
-	if (_keyHandler.iskeyPressed(SDLK_p))
-		camera.setScale(camera.getScale() - ScaleSpeed);
-
+	if (_keyHandler.iskeyPressed(SDLK_p)) {
+		if (camera.getScale() > 0.5)
+			camera.setScale(camera.getScale() - ScaleSpeed);
+	}
 	/*if (keyHandlerObj.iskeyPressed(SDL_BUTTON_LEFT)) {
 		glm::vec2 mouseCoordinates = keyHandlerObj.getMouseCoordinates();
 		mouseCoordinates = camera.ScreenToWorldCoordinates(mouseCoordinates);

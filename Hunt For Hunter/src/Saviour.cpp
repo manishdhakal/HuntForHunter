@@ -100,7 +100,6 @@ void Saviour::update(const std::vector<std::string>& levelData,
 		glm::vec2 direction= glm::normalize(mouseCoords - centerPosition);
 
 
-
 		_guns[_currentGunIndex]->update(_keyHandler->iskeyPressed(SDL_BUTTON_LEFT),
 			centerPosition,
 			direction,
