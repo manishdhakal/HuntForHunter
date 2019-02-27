@@ -369,7 +369,7 @@ void maingame::checkVictory()
 		exit(100);
 	}
 
-	if (_animals.empty())
+	if (_animals.size() == 1)
 	{
 		std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You couldn't save the animals of jungle" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d Poachers remaining.",
