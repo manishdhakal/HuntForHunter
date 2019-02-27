@@ -154,6 +154,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Bullets.cpp" />
+    <ClCompile Include="src\Gun.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\Saviour.cpp" />
     <ClCompile Include="src\Animal.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="src\maingame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Bullets.h" />
+    <ClInclude Include="src\Gun.h" />
     <ClInclude Include="src\Level.h" />
     <ClInclude Include="src\Saviour.h" />
     <ClInclude Include="src\Animal.h" />
