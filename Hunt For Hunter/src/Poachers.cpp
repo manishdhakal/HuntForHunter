@@ -15,7 +15,7 @@ void Poachers::init(float speed, glm::vec2 pos)
 {
 	_speed = speed;
 	_position = pos;
-	_health = 50;
+	_health = 200;
 	_color.r = 255;
 	_color.g = 255;
 	_color.b = 255;

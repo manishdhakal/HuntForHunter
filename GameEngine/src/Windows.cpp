@@ -46,7 +46,7 @@ namespace GameEngine
 			Error(ErrorCode::GLEWNotLoaded, "GLEW", "Could not initialize");
 		}
 
-		std::printf("*** OpenGL Version: %s ***", glGetString(GL_VERSION));
+		//std::printf("*** OpenGL Version: %s ***", glGetString(GL_VERSION));
 
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 

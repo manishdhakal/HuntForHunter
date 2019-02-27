@@ -173,7 +173,7 @@ void Agent::collideWithTile(glm::vec2 tilePos)
 
 	
 
-	if (xDepth > 0 || yDepth > 0)
+	if (xDepth > 0 && yDepth > 0)
 	{
 		if (std::max(xDepth,0.0f) < std:: max(yDepth, 0.0f))
 		{

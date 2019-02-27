@@ -59,7 +59,6 @@ bool Bullets::collideWithAgent(Agent* agent)
 
 		//glm::vec2 collisionDepthVec = glm::normalize(distVec)* collisionDepth;
 
-		
 		return true;
 	}
 	return false;

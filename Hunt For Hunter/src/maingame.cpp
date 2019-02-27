@@ -19,6 +19,8 @@ maingame::maingame() :
 	_screenHeight(768),
 	_fps(0),
 	_saviour(nullptr),
+	_numAnimalsKilled(0),
+	_numPoachersKilled(0),
 	_gameState(GameState::PLAY)
 	
 {
@@ -116,6 +118,8 @@ void maingame::gameLoop()
     {
 		fpsLimiter.beginFrame();
 
+		checkVictory();
+
 		processInput();
 		//_saviour->update();
 		updateAgents();
@@ -128,7 +132,7 @@ void maingame::gameLoop()
 		drawGame();
 
 
-		 _fps=fpsLimiter.endFrame();
+		 _fps = fpsLimiter.endFrame();
 
 
 
@@ -212,10 +216,11 @@ void maingame::updateAgents()
 		if (_poachers[i]->collideWithAgent(_saviour))
 		{
 			//GameEngine::Error(100, "!!!YOU LOSE !!!", "Poacher killed you.");
-			char a;
-			std::cout << "You Loose" << std::endl;
-			std::cout << "Enter any key to quit" <<std:: endl;
-			std::cin >> a;
+			
+			std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You were captured by poachers and cannot save the protected area(Jungle)" << std::endl;
+			
+			std::cout << "Enter any key to Quit." <<std:: endl;
+			std::cin.get();
 			exit(69);
 
 		}
@@ -238,7 +243,7 @@ void maingame::updateAgents()
 void  maingame::updateBullets()
 {
 	//Update and collide with world
-	for (int i = 0; i < _bullets.size(); i++)
+	for (int i = 0; i < _bullets.size(); )
 	{
 		if (_bullets[i].update(_levels[_currentLevel]->getLevelData()))
 		{
@@ -249,9 +254,15 @@ void  maingame::updateBullets()
 			i++;
 	}
 
+	bool wasBulletRemoved;
+
+
 	//Collide with animals and poachers
 	for (int i = 0; i < _bullets.size();i++ )
 	{
+
+		wasBulletRemoved = false;
+
 		//Loop through poachers
 		for (int j = 0; j < _poachers.size(); )
 		{
@@ -265,6 +276,7 @@ void  maingame::updateBullets()
 					delete _poachers[j];
 					_poachers[j] = _poachers.back();
 					_poachers.pop_back();
+					_numPoachersKilled++;
 					
 				}
 				else
@@ -276,6 +288,8 @@ void  maingame::updateBullets()
 				//Remove the bullet
 				_bullets[i] = _bullets.back();
 				_bullets.pop_back();
+
+				wasBulletRemoved = true;
 				i--; //We don't skip any bullet 
 
 				//Since the bullet is dead
@@ -288,12 +302,86 @@ void  maingame::updateBullets()
 		}
 		
 
+		//Loop through animals
+		if (wasBulletRemoved == false)
+		{
+			for (int j = 1; j < _animals.size(); )
+			{
+				//check collision
+				if (_bullets[i].collideWithAgent(_animals[j]))
+				{
+
+					//Kill the animal if it is out of health
+					if (_animals[j]->applyDamage(_bullets[i].getDamage()))
+					{
+						//Remove the animal if dead
+						delete _animals[j];
+						_animals[j] = _animals.back();
+						_animals.pop_back();
+
+					}
+					else
+					{
+						j++;
+					}
+
+
+					//Remove the bullet
+					_bullets[i] = _bullets.back();
+					_bullets.pop_back();
+					_numAnimalsKilled++;
+					i--; //We don't skip any bullet 
+
+					//Since the bullet is dead
+					break;
+				}
+				else
+				{
+					j++;
+				}
+			}
+
+		}
+
+
+
+
+
+
+
 	}
 	
 
 
 
 }
+
+
+void maingame::checkVictory()
+{
+	if (_poachers.empty())
+	{
+		std::cout << "!!! YOU WIN !!!"<<std::endl<<"You saved the jungle from all the poachers" << std::endl;
+		std::printf("You killed %d Animals and %d poachers.\nThere are %d/%d Animals remaining.",
+			_numAnimalsKilled,_numPoachersKilled,_animals.size()-1,_levels[_currentLevel]->getNumAnimals());
+		std::cout << "Enter any key to Quit." << std::endl;
+		std::cin.get();
+		exit(100);
+	}
+
+	if (_animals.empty())
+	{
+		std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You couldn't save the animals of jungle" << std::endl;
+		std::printf("You killed %d Animals and %d poachers.\nThere are %d Poachers remaining.",
+			_numAnimalsKilled, _numPoachersKilled, _poachers.size());
+		std::cout << "Enter any key to Quit." << std::endl;
+		std::cin.get();
+		exit(101);
+	}
+
+
+}
+
 
 
 void maingame::processInput()

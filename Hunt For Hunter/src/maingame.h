@@ -36,6 +36,9 @@ private:
 
 	void updateBullets();
 
+	void checkVictory();
+
+
 	void processInput();
 	void drawGame();
 	
@@ -69,6 +72,10 @@ private:
 	std::vector<Poachers*> _poachers;
 
 	std::vector<Bullets> _bullets;
+
+	int _numAnimalsKilled;
+	int _numPoachersKilled;
+
 
 	GameState _gameState;
 	
