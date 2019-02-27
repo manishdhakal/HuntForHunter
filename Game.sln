@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{672C20E2-1307-45F3-8763-7FB36FE09091}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine", "GameEngine\GameEngine.vcxproj", "{1D8E80B2-4874-40A5-9165-A5806C21C4D3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hunt For Hunter", "Hunt For Hunter\Hunt For Hunter.vcxproj", "{24A0B638-C3E3-44FC-94B6-5DEEC69592AB}"
@@ -20,14 +18,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Debug|x64.ActiveCfg = Debug|x64
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Debug|x64.Build.0 = Debug|x64
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Debug|x86.ActiveCfg = Debug|Win32
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Debug|x86.Build.0 = Debug|Win32
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Release|x64.ActiveCfg = Release|x64
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Release|x64.Build.0 = Release|x64
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Release|x86.ActiveCfg = Release|Win32
-		{672C20E2-1307-45F3-8763-7FB36FE09091}.Release|x86.Build.0 = Release|Win32
 		{1D8E80B2-4874-40A5-9165-A5806C21C4D3}.Debug|x64.ActiveCfg = Debug|x64
 		{1D8E80B2-4874-40A5-9165-A5806C21C4D3}.Debug|x64.Build.0 = Debug|x64
 		{1D8E80B2-4874-40A5-9165-A5806C21C4D3}.Debug|x86.ActiveCfg = Debug|Win32

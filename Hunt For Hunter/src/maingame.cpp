@@ -494,4 +494,7 @@ void maingame:: drawGame()
 	_window.swapBuffer();  
 
 }
+void maingame::saveHighscore() {
+	std::ofstream Highscorefile;
+}
 

@@ -15,6 +15,8 @@
 #include"Bullets.h"
 #include"Saviour.h"
 
+#include <fstream>
+
 class Poachers;
 
  enum class GameState {PLAY,EXIT}; 
@@ -41,6 +43,8 @@ private:
 
 	void processInput();
 	void drawGame();
+	
+	void saveHighscore();
 	
 	int _screenWidth;
 	int _screenHeight;
