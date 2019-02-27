@@ -59,7 +59,7 @@ void Animal::update(const std::vector<std::string>& levelData,
 
 	_position += _direction * _speed;
 
-	if (_frames == 20)
+	if (_frames == 250)
 	{
 
 		_direction = glm::rotate(_direction, randRotate(randomEngine));

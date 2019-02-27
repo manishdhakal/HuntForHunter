@@ -88,7 +88,7 @@ void Agent::draw(GameEngine::SpriteBatch& _spriteBatch, int i)
 	else if (i >= 16 && i <= 20)
 		textureID = GameEngine::ResourceManager::getTexture("textures/giraffe.png").id;
 	else if (i >= 21 && i <= 25)
-		textureID = GameEngine::ResourceManager::getTexture("textures/sunny.png").id;
+		textureID = GameEngine::ResourceManager::getTexture("textures/tiger.png").id;
 	else if (i >= 21 && i <= 25)
 		textureID = GameEngine::ResourceManager::getTexture("textures/zebra.png").id;
 	else if (i >= 26 && i <= 35)
@@ -112,7 +112,7 @@ void Agent::draw(GameEngine::SpriteBatch& _spriteBatch, int i)
 void Agent::draw(GameEngine::SpriteBatch& _spriteBatch)
 {
 	glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
-	int textureID = GameEngine::ResourceManager::getTexture("textures/player.png").id;
+	int textureID = GameEngine::ResourceManager::getTexture("textures/po.png").id;
 	
 
 	glm::vec4 destRect;

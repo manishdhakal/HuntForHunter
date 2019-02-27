@@ -9,7 +9,7 @@
 #include<ctime>
 #include"Poachers.h"
 
-
+#include"Gun.h"
 const float ANIMAL_SPEED = 1.0f;
 
 const float POACHER_SPEED = 1.3f;
@@ -62,7 +62,7 @@ void maingame::initLevel()
 
 	_currentLevel = 0;
 	_saviour = new Saviour();
-	_saviour->init(4.0f, _levels[_currentLevel]->getStartSaviourPos(), &_keyHandler);
+	_saviour->init(4.0f, _levels[_currentLevel]->getStartSaviourPos(), &_keyHandler,&camera,&_bullets);
 
 	_animals.push_back(_saviour);
 
@@ -90,8 +90,10 @@ void maingame::initLevel()
 
 
 	}
-
-
+	const float BULLET_SPEED = 20.0f;
+	_saviour->addGun(new Gun("Magnum", 30, 1, 10.0f, 30, BULLET_SPEED));
+	_saviour->addGun(new Gun("Shotgun", 60, 20, 40.0f, 4, BULLET_SPEED));
+	_saviour->addGun(new Gun("MP5", 5, 1, 20.0f, 20, BULLET_SPEED));
 
 
 }
@@ -117,6 +119,9 @@ void maingame::gameLoop()
 		processInput();
 		//_saviour->update();
 		updateAgents();
+
+		updateBullets();
+
 		camera.setPosition(_saviour->getposition());
 
 		camera.update();
@@ -206,7 +211,13 @@ void maingame::updateAgents()
 		//Collision of saviour and poachers 
 		if (_poachers[i]->collideWithAgent(_saviour))
 		{
-			GameEngine::Error(100, "!!!YOU LOSE !!!", "Poacher killed you.");
+			//GameEngine::Error(100, "!!!YOU LOSE !!!", "Poacher killed you.");
+			char a;
+			std::cout << "You Loose" << std::endl;
+			std::cout << "Enter any key to quit" <<std:: endl;
+			std::cin >> a;
+			exit(69);
+
 		}
 
 	}
@@ -222,6 +233,14 @@ void maingame::updateAgents()
 		}
 	}
 
+}
+
+void  maingame::updateBullets()
+{
+	for (int i = 0; i < _bullets.size(); i++)
+	{
+		_bullets[i].update(_animals, _poachers);
+	}
 }
 
 
@@ -319,7 +338,15 @@ void maingame:: drawGame()
 		_poachers[i]->draw(_agentSpriteBatch);
 	}
 
+	for (int i = 0; i < _bullets.size(); i++)
+	{
+		_bullets[i].draw(_agentSpriteBatch);
+	}
+
 	_agentSpriteBatch.end();
+
+
+
 	_agentSpriteBatch.renderBatch();
 	_textureProgram.unuse();
 

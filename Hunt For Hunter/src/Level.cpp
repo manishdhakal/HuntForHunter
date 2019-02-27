@@ -93,6 +93,11 @@ Level::Level(const std::string &fileName)
 				break;
 			case 'Z':
 				_leveldata[y][x] = '.';
+				_spriteBatch.draw(destRect,
+					uvRect,
+					GameEngine::ResourceManager::getTexture("textures/grass.jfif").id,
+					0.0f,
+					wcolor);
 
 				//_levelData[][x] = '.';
 				/*_spriteBatch.draw(destRect,

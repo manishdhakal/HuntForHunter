@@ -12,7 +12,7 @@
 #include "timing.h"
 //#include "fireWeapon.h"
 #include "Level.h"
-
+#include"Bullets.h"
 #include"Saviour.h"
 
 class Poachers;
@@ -33,6 +33,8 @@ private:
 	void gameLoop();
 
 	void updateAgents();
+
+	void updateBullets();
 
 	void processInput();
 	void drawGame();
@@ -66,6 +68,7 @@ private:
 	std::vector<Animal*> _animals;
 	std::vector<Poachers*> _poachers;
 
+	std::vector<Bullets> _bullets;
 
 	GameState _gameState;
 	

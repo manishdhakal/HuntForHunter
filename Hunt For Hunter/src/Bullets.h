@@ -2,8 +2,11 @@
 
 #include<glm.hpp>
 #include<vector>
+#include<SpriteBatch.h>
 class Animal;
 class Poachers;
+
+const int BULLET_RADIUS=5;
 
 class Bullets
 {
@@ -13,6 +16,9 @@ public:
 
 	void update(std::vector<Animal*>& animals,
 		std::vector <Poachers*>& poachers);
+
+	void draw(GameEngine::SpriteBatch& spriteBatch);
+
 
 private:
 	float _damage;
