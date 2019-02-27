@@ -24,7 +24,7 @@ void Saviour::init(float speed, glm::vec2 pos, GameEngine::keyHandler* keyHandle
 	_color.g = 147;
 	_color.b = 106;
 	_color.a = 255;
-
+	_health = 150;
 
 }
 

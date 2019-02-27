@@ -68,8 +68,8 @@ void maingame::initLevel()
 
 	 std::mt19937 randomEngine;
 	randomEngine.seed(time(nullptr));
-	 std::uniform_int_distribution<int> randX(1, _levels[_currentLevel]->getWidth() - 2);
-	 std::uniform_int_distribution<int> randY(1, _levels[_currentLevel]->getHeight() - 2);
+	 std::uniform_int_distribution<int> randX(2, _levels[_currentLevel]->getWidth() - 2);
+	 std::uniform_int_distribution<int> randY(2, _levels[_currentLevel]->getHeight() - 2);
 
 	 
 	for (int i = 0; i < _levels[_currentLevel]->getNumAnimals(); i++)
@@ -91,9 +91,9 @@ void maingame::initLevel()
 
 	}
 	const float BULLET_SPEED = 20.0f;
-	_saviour->addGun(new Gun("Magnum", 30, 1, 10.0f, 30, BULLET_SPEED));
-	_saviour->addGun(new Gun("Shotgun", 60, 20, 40.0f, 4, BULLET_SPEED));
-	_saviour->addGun(new Gun("MP5", 5, 1, 20.0f, 20, BULLET_SPEED));
+	_saviour->addGun(new Gun("Magnum", 10, 1, 5.0f, 30, BULLET_SPEED));
+	_saviour->addGun(new Gun("Shotgun", 30, 12, 20.0f, 4, BULLET_SPEED));
+	_saviour->addGun(new Gun("MP5", 2, 1, 10.0f, 20, BULLET_SPEED));
 
 
 }
@@ -237,10 +237,62 @@ void maingame::updateAgents()
 
 void  maingame::updateBullets()
 {
+	//Update and collide with world
 	for (int i = 0; i < _bullets.size(); i++)
 	{
-		_bullets[i].update(_animals, _poachers);
+		if (_bullets[i].update(_levels[_currentLevel]->getLevelData()))
+		{
+			_bullets[i] = _bullets.back();
+			_bullets.pop_back();
+		}
+		else 
+			i++;
 	}
+
+	//Collide with animals and poachers
+	for (int i = 0; i < _bullets.size();i++ )
+	{
+		//Loop through poachers
+		for (int j = 0; j < _poachers.size(); )
+		{
+			if (_bullets[i].collideWithAgent(_poachers[j]))
+			{
+
+				//Kill the poacher if it is out of health
+				if (_poachers[j]->applyDamage(_bullets[i].getDamage()))
+				{
+					//Remove the poacher if dead
+					delete _poachers[j];
+					_poachers[j] = _poachers.back();
+					_poachers.pop_back();
+					
+				}
+				else
+				{
+					j++;
+				}
+
+
+				//Remove the bullet
+				_bullets[i] = _bullets.back();
+				_bullets.pop_back();
+				i--; //We don't skip any bullet 
+
+				//Since the bullet is dead
+				break;
+			}
+			else
+			{
+				j++;
+			}
+		}
+		
+
+	}
+	
+
+
+
 }
 
 

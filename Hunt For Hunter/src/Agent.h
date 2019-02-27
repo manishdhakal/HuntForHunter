@@ -29,6 +29,9 @@ public:
 	void draw( GameEngine::SpriteBatch& _spriteBatch, int i);
 	void draw(GameEngine::SpriteBatch& _spriteBatch);
 
+	//Return true if dead
+	bool applyDamage(float damage);
+
 
 	glm::vec2 getposition() const
 	{
@@ -48,6 +51,10 @@ protected:
 	glm::vec2 _position;
 	GameEngine::Color _color;
 	float _speed;
+	float _health;
+
+
+
 	std::string spriteFile;
 
 

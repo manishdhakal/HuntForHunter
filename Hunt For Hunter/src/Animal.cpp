@@ -3,9 +3,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 
 #include "Animal.h"
-
-
-
 #include"ctime"
 #include<random>
 #include<gtx/rotate_vector.hpp>
@@ -28,6 +25,8 @@ void Animal::init(float speed, glm::vec2 pos)
 	static std::mt19937 randomEngine(time(nullptr));
 	
 	static std::uniform_real_distribution<float> ranDir(-1.0f, 1.0f);
+
+	_health = 20;
 
 	_color.r = 255;
 	_color.g = 255;
