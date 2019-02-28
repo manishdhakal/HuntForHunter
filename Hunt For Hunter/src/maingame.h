@@ -10,16 +10,13 @@
 #include "SpriteBatch.h"
 #include "keyHandler.h"
 #include "timing.h"
-//#include "fireWeapon.h"
 #include "Level.h"
 #include"Bullets.h"
 #include"Saviour.h"
 
-#include <fstream>
-
 class Poachers;
 
- enum class GameState {PLAY,EXIT}; 
+enum class GameState {PLAY,EXIT}; 
 class maingame
 {
 public:
@@ -44,18 +41,26 @@ private:
 	void processInput();
 	void drawGame();
 	
+	void readHighscore();
 	void saveHighscore();
 	
 	int _screenWidth;
 	int _screenHeight;
 
 
+	int _numAnimalsKilled;
+	int _numPoachersKilled;
+
+	int prevHighscore;
+
 	float _time;
+	float _fps;
+
+	int _currentLevel;
+
 	GameEngine::Windows _window;
 	
-	
 	GameEngine::GLSLProgram _textureProgram;
-
 
 	GameEngine::Camera2D camera;
 
@@ -67,19 +72,11 @@ private:
 	
 	std::vector<Level*> _levels;
 
-	float _fps;
-	
-	int _currentLevel;
-
 	Saviour* _saviour;
 	std::vector<Animal*> _animals;
 	std::vector<Poachers*> _poachers;
 
 	std::vector<Bullets> _bullets;
-
-	int _numAnimalsKilled;
-	int _numPoachersKilled;
-
 
 	GameState _gameState;
 	

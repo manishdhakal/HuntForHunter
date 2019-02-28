@@ -3,15 +3,16 @@
 #include <iostream>
 #include <string>
 #include <timing.h>
-#include"GameEngine.h"
 #include "glm.hpp"
 #include<random>
 #include<ctime>
 #include"Poachers.h"
 
 #include"Gun.h"
-const float ANIMAL_SPEED = 1.0f;
 
+#include <fstream>
+
+const float ANIMAL_SPEED = 1.0f;
 const float POACHER_SPEED = 1.3f;
 
 maingame::maingame() :
@@ -23,11 +24,7 @@ maingame::maingame() :
 	_numPoachersKilled(0),
 	_gameState(GameState::PLAY)
 	
-{
-	
-	
-}
-
+{}
 
 maingame::~maingame()
 {
@@ -36,13 +33,14 @@ maingame::~maingame()
 		delete _levels[i];
 	}
 }
+
 void maingame::run()
 {
 	initSystems();
 	initLevel();
 	gameLoop();
-	
 }
+
 void maingame::initSystems()
 {
 	GameEngine::init();
@@ -53,9 +51,6 @@ void maingame::initSystems()
 	_agentSpriteBatch.init();
 	
 	camera.init(_screenWidth, _screenHeight);
-
-	
-
 }
 
 void maingame::initLevel()
@@ -73,14 +68,11 @@ void maingame::initLevel()
 	 std::uniform_int_distribution<int> randX(2, _levels[_currentLevel]->getWidth() - 2);
 	 std::uniform_int_distribution<int> randY(2, _levels[_currentLevel]->getHeight() - 2);
 
-	 
 	for (int i = 0; i < _levels[_currentLevel]->getNumAnimals(); i++)
 	{
 		_animals.push_back(new Animal);
 		glm::vec2 pos(randX(randomEngine)*TILE_WIDTH, randY(randomEngine)*TILE_WIDTH);
 		_animals.back()->init(ANIMAL_SPEED, pos);
-
-
 	}
 
 	const std::vector<glm::vec2>& poacherPositions = _levels[_currentLevel]->getStartPoacherPos();
@@ -90,14 +82,11 @@ void maingame::initLevel()
 		//glm::vec2 pos(randX(randomEngine)*TILE_WIDTH, randY(randomEngine)*TILE_WIDTH);
 		_poachers.back()->init(POACHER_SPEED, poacherPositions[i]);
 
-
 	}
 	const float BULLET_SPEED = 20.0f;
 	_saviour->addGun(new Gun("Magnum", 10, 1, 5.0f, 30, BULLET_SPEED));
 	_saviour->addGun(new Gun("Shotgun", 30, 12, 20.0f, 4, BULLET_SPEED));
 	_saviour->addGun(new Gun("MP5", 2, 1, 10.0f, 20, BULLET_SPEED));
-
-
 }
 
 void maingame::initShaders()
@@ -109,7 +98,6 @@ void maingame::initShaders()
 	_textureProgram.linkShaders();
 }
 
-
 void maingame::gameLoop()
 {
 	GameEngine::FpsLimiter fpsLimiter;
@@ -117,11 +105,10 @@ void maingame::gameLoop()
 	while (_gameState == GameState::PLAY)
     {
 		fpsLimiter.beginFrame();
-
+		
 		checkVictory();
 
 		processInput();
-		//_saviour->update();
 		updateAgents();
 
 		updateBullets();
@@ -131,46 +118,8 @@ void maingame::gameLoop()
 		camera.update();
 		drawGame();
 
-
 		 _fps = fpsLimiter.endFrame();
-
-
-
 	}
-	/*while (_gameState != GameState::EXIT)
-	{
-		fpsLimiterObj.beginFrame();
-		
-		processInput();
-
-		_time += 0.01;
-
-		camera.update();
-
-		for (int i = 0; i < bullets.size(); i++) {
-
-			if (bullets[i].updatePos() == true) {
-				bullets[i] = bullets.back();
-				bullets.pop_back();
-			}
-			else {
-				i++;
-			}
-		}
-
-		drawGame();
-		_fps = fpsLimiterObj.endFrame();
-
-		static int frameCounter = 0;
-		frameCounter++;
-		if (frameCounter == 10000)
-		{
-			std::cout << _fps << std::endl;
-			frameCounter = 0;
-
-		}
-
-	} */
 }
 
 void maingame::updateAgents()
@@ -190,9 +139,6 @@ void maingame::updateAgents()
 			_animals,
 			_poachers);
 	}
-
-
-
 
 	//Update poacher collision
 	for (int i = 0; i < _poachers.size(); i++)
@@ -215,7 +161,6 @@ void maingame::updateAgents()
 		//Collision of saviour and poachers 
 		if (_poachers[i]->collideWithAgent(_saviour))
 		{
-			//GameEngine::Error(100, "!!!YOU LOSE !!!", "Poacher killed you.");
 			
 			std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You were captured by poachers and cannot save the protected area(Jungle)" << std::endl;
 			
@@ -256,7 +201,6 @@ void  maingame::updateBullets()
 
 	bool wasBulletRemoved;
 
-
 	//Collide with animals and poachers
 	for (int i = 0; i < _bullets.size();i++ )
 	{
@@ -283,7 +227,6 @@ void  maingame::updateBullets()
 				{
 					j++;
 				}
-
 
 				//Remove the bullet
 				_bullets[i] = _bullets.back();
@@ -325,7 +268,6 @@ void  maingame::updateBullets()
 						j++;
 					}
 
-
 					//Remove the bullet
 					_bullets[i] = _bullets.back();
 					_bullets.pop_back();
@@ -343,24 +285,19 @@ void  maingame::updateBullets()
 
 		}
 
-
-
-
-
-
-
 	}
-	
-
-
 
 }
-
 
 void maingame::checkVictory()
 {
 	if (_poachers.empty())
 	{
+		readHighscore();
+
+		if (_animals.size() - 1 > prevHighscore)
+			saveHighscore();
+
 		std::cout << "!!! YOU WIN !!!"<<std::endl<<"You saved the jungle from all the poachers" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d/%d Animals remaining.",
 			_numAnimalsKilled,_numPoachersKilled,_animals.size()-1,_levels[_currentLevel]->getNumAnimals());
@@ -371,18 +308,14 @@ void maingame::checkVictory()
 
 	if (_animals.size() == 1)
 	{
-		std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You couldn't save the animals of jungle" << std::endl;
+		std::cout << "!!! YOU LOOSE !!!" << std::endl << "You couldn't save the animals of jungle" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d Poachers remaining.",
 			_numAnimalsKilled, _numPoachersKilled, _poachers.size());
 		std::cout << "Enter any key to Quit." << std::endl;
 		std::cin.get();
 		exit(101);
 	}
-
-
 }
-
-
 
 void maingame::processInput()
 {
@@ -433,18 +366,7 @@ void maingame::processInput()
 		if (camera.getScale() > 0.5)
 			camera.setScale(camera.getScale() - ScaleSpeed);
 	}
-	/*if (keyHandlerObj.iskeyPressed(SDL_BUTTON_LEFT)) {
-		glm::vec2 mouseCoordinates = keyHandlerObj.getMouseCoordinates();
-		mouseCoordinates = camera.ScreenToWorldCoordinates(mouseCoordinates);
-		std::cout << mouseCoordinates.x << "  " << mouseCoordinates.y << '\n';
-
-		glm::vec2 playerPosition(0.0f);
-		glm::vec2 direction = mouseCoordinates - playerPosition;
-		
-		direction = glm::normalize(direction);
-
-		bullets.emplace_back(playerPosition, direction, 5.0f, 1000);
-	}  */
+	
 }
 
 void maingame:: drawGame()
@@ -494,7 +416,22 @@ void maingame:: drawGame()
 	_window.swapBuffer();  
 
 }
-void maingame::saveHighscore() {
-	std::ofstream Highscorefile;
-}
 
+
+void maingame::readHighscore() {
+
+	std::string scorestring;
+
+	std::ifstream ScoreFile("score/highscore", std::ifstream::in);
+	getline(ScoreFile, scorestring);
+	prevHighscore = std::stoi(scorestring);
+
+	ScoreFile.close();
+}
+void maingame::saveHighscore() {
+
+	std::ofstream Highscorefile("score/highscore", std::ofstream::out);
+	Highscorefile << _animals.size() << std::endl;
+
+	Highscorefile.close();
+}
