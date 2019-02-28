@@ -161,13 +161,14 @@ void maingame::updateAgents()
 		//Collision of saviour and poachers 
 		if (_poachers[i]->collideWithAgent(_saviour))
 		{
-			
+			char key = ' ';
 			std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You were captured by poachers and cannot save the protected area(Jungle)" << std::endl;
-			
-			std::cout << "Enter any key to Quit." <<std:: endl;
-			std::cin.get();
-			exit(69);
-
+			while (key != 'q') {
+				std::cout << "Press 'q' to Quit." << std::endl;
+				std::cin >> key;
+				if (key == 'q')
+					exit(69);
+			}
 		}
 
 	}
@@ -301,9 +302,14 @@ void maingame::checkVictory()
 		std::cout << "!!! YOU WIN !!!"<<std::endl<<"You saved the jungle from all the poachers" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d/%d Animals remaining.",
 			_numAnimalsKilled,_numPoachersKilled,_animals.size()-1,_levels[_currentLevel]->getNumAnimals());
-		std::cout << "Enter any key to Quit." << std::endl;
-		std::cin.get();
-		exit(100);
+		std::cout << "Press Enter to Quit." << std::endl;
+		char key =  ' ';
+		while (key != 'q') {
+			std::cout << "Press 'q' to Quit." << std::endl;
+			std::cin >> key;
+			if (key == 'q')
+				exit(69);
+		}
 	}
 
 	if (_animals.size() == 1)
@@ -311,9 +317,14 @@ void maingame::checkVictory()
 		std::cout << "!!! YOU LOOSE !!!" << std::endl << "You couldn't save the animals of jungle" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d Poachers remaining.",
 			_numAnimalsKilled, _numPoachersKilled, _poachers.size());
-		std::cout << "Enter any key to Quit." << std::endl;
-		std::cin.get();
-		exit(101);
+		std::cout << "Press Enter to Quit." << std::endl;
+		char key = ' ';
+		while (key != 'q') {
+			std::cout << "Press 'q' to Quit." << std::endl;
+			std::cin >> key;
+			if (key == 'q')
+				exit(69);
+		}
 	}
 }
 
@@ -359,10 +370,10 @@ void maingame::processInput()
 	if (_keyHandler.iskeyPressed( SDLK_d))
 		camera.setPosition(camera.getPosition() + glm::vec2(CameraSpeed, 0.0f));
 		
-	if (_keyHandler.iskeyPressed( SDLK_q))
+	if (_keyHandler.iskeyPressed( SDLK_EQUALS))
 		camera.setScale(camera.getScale() + ScaleSpeed);
 		
-	if (_keyHandler.iskeyPressed(SDLK_p)) {
+	if (_keyHandler.iskeyPressed(SDLK_MINUS)) {
 		if (camera.getScale() > 0.5)
 			camera.setScale(camera.getScale() - ScaleSpeed);
 	}
