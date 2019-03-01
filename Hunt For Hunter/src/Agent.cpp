@@ -106,6 +106,10 @@ void Agent::draw(GameEngine::SpriteBatch& _spriteBatch, int i)
 	destRect.y = _position.y;
 	destRect.z = AGENT_WIDTH;
 	destRect.w = AGENT_WIDTH;
+	/*if (i == 0)
+	{
+		std::cout << destRect.x << '\n' << destRect.y << '\n' << destRect.z << '\n' << destRect.w << '\n';
+	}*/
 	_spriteBatch.draw(destRect, uvRect, textureID, 0.0f, _color);
 }
 

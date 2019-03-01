@@ -1,4 +1,8 @@
 #include "maingame.h"
+#include"Poachers.h"
+#include"Gun.h"
+
+
 #include "Common.h"
 #include <iostream>
 #include <string>
@@ -6,11 +10,11 @@
 #include "glm.hpp"
 #include<random>
 #include<ctime>
-#include"Poachers.h"
+#include "Vertex.h"
 
-#include"Gun.h"
 
 #include <fstream>
+
 
 const float ANIMAL_SPEED = 1.0f;
 const float POACHER_SPEED = 1.3f;
@@ -22,8 +26,9 @@ maingame::maingame() :
 	_saviour(nullptr),
 	_numAnimalsKilled(0),
 	_numPoachersKilled(0),
-	_gameState(GameState::PLAY)
-	
+	_gameState(GameState::START),
+	isFinished(false),
+	isGameWon(false)
 {}
 
 maingame::~maingame()
@@ -38,6 +43,7 @@ void maingame::run()
 {
 	initSystems();
 	initLevel();
+	menuFrameCount = 0;
 	gameLoop();
 }
 
@@ -48,7 +54,11 @@ void maingame::initSystems()
 	glClearColor(0.0f, 0.41f, 0.0f, 0.0f);
 	initShaders();
 
+	consoleSprites.init();
+
 	_agentSpriteBatch.init();
+
+	resultSprites.init();
 	
 	camera.init(_screenWidth, _screenHeight);
 }
@@ -102,23 +112,35 @@ void maingame::gameLoop()
 {
 	GameEngine::FpsLimiter fpsLimiter;
 	fpsLimiter.setMaxFPS(60.0f);
-	while (_gameState == GameState::PLAY)
+	while (_gameState != GameState::EXIT)
     {
-		fpsLimiter.beginFrame();
-		
-		checkVictory();
+		if (_gameState == GameState::START) {
+			fpsLimiter.beginFrame();
 
-		processInput();
-		updateAgents();
+			processConsoleInput();
+			drawConsole();
+			
+			_fps = fpsLimiter.endFrame();
+		}
+		if (_gameState == GameState::PLAY) {
+			fpsLimiter.beginFrame();
+			if (!isFinished) {
+				checkVictory();
 
-		updateBullets();
+				processInput();
+				updateAgents();
 
-		camera.setPosition(_saviour->getposition());
+				updateBullets();
 
-		camera.update();
-		drawGame();
+				camera.setPosition(_saviour->getposition());
 
-		 _fps = fpsLimiter.endFrame();
+				camera.update();
+			}
+			
+			drawGame();
+
+			_fps = fpsLimiter.endFrame();
+		}
 	}
 }
 
@@ -161,14 +183,15 @@ void maingame::updateAgents()
 		//Collision of saviour and poachers 
 		if (_poachers[i]->collideWithAgent(_saviour))
 		{
-			char key = ' ';
+			isFinished = true;
+			/*char key = ' ';
 			std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You were captured by poachers and cannot save the protected area(Jungle)" << std::endl;
 			while (key != 'q') {
 				std::cout << "Press 'q' to Quit." << std::endl;
 				std::cin >> key;
 				if (key == 'q')
 					exit(69);
-			}
+			}*/
 		}
 
 	}
@@ -299,7 +322,8 @@ void maingame::checkVictory()
 		if (_animals.size() - 1 > prevHighscore)
 			saveHighscore();
 
-		std::cout << "!!! YOU WIN !!!"<<std::endl<<"You saved the jungle from all the poachers" << std::endl;
+		isFinished = true;
+		/*std::cout << "!!! YOU WIN !!!"<<std::endl<<"You saved the jungle from all the poachers" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d/%d Animals remaining.",
 			_numAnimalsKilled,_numPoachersKilled,_animals.size()-1,_levels[_currentLevel]->getNumAnimals());
 		std::cout << "Press Enter to Quit." << std::endl;
@@ -309,12 +333,13 @@ void maingame::checkVictory()
 			std::cin >> key;
 			if (key == 'q')
 				exit(69);
-		}
+		}*/
 	}
 
 	if (_animals.size() == 1)
 	{
-		std::cout << "!!! YOU LOOSE !!!" << std::endl << "You couldn't save the animals of jungle" << std::endl;
+		isFinished = true;
+		/*std::cout << "!!! YOU LOOSE !!!" << std::endl << "You couldn't save the animals of jungle" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d Poachers remaining.",
 			_numAnimalsKilled, _numPoachersKilled, _poachers.size());
 		std::cout << "Press Enter to Quit." << std::endl;
@@ -324,7 +349,7 @@ void maingame::checkVictory()
 			std::cin >> key;
 			if (key == 'q')
 				exit(69);
-		}
+		}*/
 	}
 }
 
@@ -380,9 +405,74 @@ void maingame::processInput()
 	
 }
 
+void maingame::processConsoleInput(){
+	SDL_Event evnt;
+
+	while (SDL_PollEvent(&evnt))
+	{
+		switch (evnt.type)
+		{
+		case SDL_QUIT:
+			_gameState = GameState::EXIT;
+			break;
+		case SDL_KEYDOWN:
+			if (evnt.key.keysym.sym == SDLK_RETURN || evnt.key.keysym.sym == SDLK_KP_ENTER)
+				_gameState = GameState::PLAY;
+			else if(evnt.key.keysym.sym == SDLK_q)
+				_gameState = GameState::EXIT;
+		}
+	}
+
+}
+
+void maingame::drawConsole() {
+	
+
+
+	GLError(glClearDepth(1.0));
+	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+
+	_textureProgram.use();
+
+	glActiveTexture(GL_TEXTURE0);
+	GLint textureUniform = _textureProgram.getUniformLocation("mySampler");
+	glUniform1i(textureUniform, 0);
+
+	glm::mat4 projectionMatrix = camera.getcameraMatrix();
+	GLint pUniform = _textureProgram.getUniformLocation("P");
+
+	glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
+	GLuint menuTexture;
+	if (menuFrameCount < 20) {
+		menuTexture = GameEngine::ResourceManager::getTexture("textures/front-menu.png").id;
+	}
+	else if (menuFrameCount < 40) {
+		menuTexture = GameEngine::ResourceManager::getTexture("textures/front-menu-up.png").id;
+	}
+	else {
+		menuTexture = GameEngine::ResourceManager::getTexture("textures/front-menu.png").id;
+		menuFrameCount = 0;
+	}
+	glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
+	glm::vec4 destRect(-1.0f, -1.0f, 2.0f, 2.0f);
+	GameEngine::Color color;
+	color.setColor(255, 255, 255, 255);
+
+
+	consoleSprites.begin();
+	consoleSprites.draw(destRect, uvRect, menuTexture, 0.0f, color);
+	consoleSprites.end();
+	
+	consoleSprites.renderBatch();
+	_textureProgram.unuse();
+
+	_window.swapBuffer();
+	menuFrameCount++;
+}
+
 void maingame:: drawGame()
 {
-	
+	std::cout << "draw game called\n";
 
 	GLError(glClearDepth(1.0));
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -397,6 +487,7 @@ void maingame:: drawGame()
 	GLint pUniform = _textureProgram.getUniformLocation("P");
 
 	glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
+	
 
 	_levels[_currentLevel]->draw();
 
@@ -419,15 +510,44 @@ void maingame:: drawGame()
 
 	_agentSpriteBatch.end();
 
-
-
 	_agentSpriteBatch.renderBatch();
-	_textureProgram.unuse();
+	
+	
+	if (isFinished)
+	{
+		SDL_Event evnt;
 
+		while (SDL_PollEvent(&evnt))
+		{
+			if (evnt.type == SDL_QUIT)
+				_gameState = GameState::EXIT;
+
+		}
+
+		GLuint menuTexture = GameEngine::ResourceManager::getTexture("textures/front-menu.png").id;
+
+		glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
+		glm::vec4 destRect(-1.0f, -1.0f, 2.0f, 2.0f);
+		GameEngine::Color color;
+		color.setColor(255, 255, 255, 255);
+
+		
+
+		resultSprites.begin();
+		resultSprites.draw(destRect, uvRect, menuTexture, 0.0f, color);
+		resultSprites.end();
+
+
+		resultSprites.renderBatch();
+		
+		
+	}
+	
+	
+	_textureProgram.unuse();
 	_window.swapBuffer();  
 
 }
-
 
 void maingame::readHighscore() {
 

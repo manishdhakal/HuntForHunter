@@ -13,10 +13,11 @@
 #include "Level.h"
 #include"Bullets.h"
 #include"Saviour.h"
+#include "ResourceManager.h"
 
 class Poachers;
 
-enum class GameState {PLAY,EXIT}; 
+enum class GameState {START, PLAY, EXIT,  }; 
 class maingame
 {
 public:
@@ -39,7 +40,11 @@ private:
 
 
 	void processInput();
+	void processConsoleInput();
+
 	void drawGame();
+	void drawConsole();
+	void drawResult();
 	
 	void readHighscore();
 	void saveHighscore();
@@ -53,10 +58,15 @@ private:
 
 	int prevHighscore;
 
+	int menuFrameCount;
+
 	float _time;
 	float _fps;
 
 	int _currentLevel;
+
+	bool isFinished;
+	bool isGameWon;
 
 	GameEngine::Windows _window;
 	
@@ -68,6 +78,9 @@ private:
 
 	GameEngine::SpriteBatch _spriteBatch;
 
+	GameEngine::SpriteBatch consoleSprites;
+	GameEngine::SpriteBatch resultSprites;
+
 	GameEngine::keyHandler _keyHandler ;
 	
 	std::vector<Level*> _levels;
@@ -75,6 +88,7 @@ private:
 	Saviour* _saviour;
 	std::vector<Animal*> _animals;
 	std::vector<Poachers*> _poachers;
+
 
 	std::vector<Bullets> _bullets;
 
