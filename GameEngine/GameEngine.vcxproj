@@ -204,7 +204,6 @@
     <ClCompile Include="src\ImageLoader.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\sprites.cpp" />
-    <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\TextureCache.cpp" />
     <ClCompile Include="src\timing.cpp" />
     <ClCompile Include="src\Windows.cpp" />

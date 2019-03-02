@@ -27,8 +27,8 @@ maingame::maingame() :
 	_numAnimalsKilled(0),
 	_numPoachersKilled(0),
 	_gameState(GameState::START),
-	isFinished(false),
-	isGameWon(false)
+	isGameWon(false),
+	isNewHighscore(false)
 {}
 
 maingame::~maingame()
@@ -58,7 +58,6 @@ void maingame::initSystems()
 
 	_agentSpriteBatch.init();
 
-	resultSprites.init();
 	
 	camera.init(_screenWidth, _screenHeight);
 }
@@ -124,23 +123,23 @@ void maingame::gameLoop()
 		}
 		if (_gameState == GameState::PLAY) {
 			fpsLimiter.beginFrame();
-			if (!isFinished) {
-				checkVictory();
+			
+			checkVictory();
 
-				processInput();
-				updateAgents();
+			processInput();
+			updateAgents();
 
-				updateBullets();
+			updateBullets();
 
-				camera.setPosition(_saviour->getposition());
+			camera.setPosition(_saviour->getposition());
 
-				camera.update();
-			}
+			camera.update();
 			
 			drawGame();
 
 			_fps = fpsLimiter.endFrame();
 		}
+		
 	}
 }
 
@@ -183,15 +182,15 @@ void maingame::updateAgents()
 		//Collision of saviour and poachers 
 		if (_poachers[i]->collideWithAgent(_saviour))
 		{
-			isFinished = true;
-			/*char key = ' ';
+			
+			char key = ' ';
 			std::cout << "!!! YOU LOOSE !!!"<<std::endl<<"You were captured by poachers and cannot save the protected area(Jungle)" << std::endl;
 			while (key != 'q') {
 				std::cout << "Press 'q' to Quit." << std::endl;
 				std::cin >> key;
 				if (key == 'q')
 					exit(69);
-			}*/
+			}
 		}
 
 	}
@@ -285,7 +284,6 @@ void  maingame::updateBullets()
 						delete _animals[j];
 						_animals[j] = _animals.back();
 						_animals.pop_back();
-
 					}
 					else
 					{
@@ -319,13 +317,18 @@ void maingame::checkVictory()
 	{
 		readHighscore();
 
-		if (_animals.size() - 1 > prevHighscore)
+		if (_animals.size() - 1 > prevHighscore) {
 			saveHighscore();
-
-		isFinished = true;
-		/*std::cout << "!!! YOU WIN !!!"<<std::endl<<"You saved the jungle from all the poachers" << std::endl;
+			isNewHighscore = true;
+		}
+		
+		std::cout << "!!! YOU WIN !!!"<<std::endl<<"You saved the jungle from all the poachers" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d/%d Animals remaining.",
 			_numAnimalsKilled,_numPoachersKilled,_animals.size()-1,_levels[_currentLevel]->getNumAnimals());
+		if (isNewHighscore) {
+			std::cout << "Congratulations you have got new highscore of " << _animals.size() << '\n';
+		}
+		
 		std::cout << "Press Enter to Quit." << std::endl;
 		char key =  ' ';
 		while (key != 'q') {
@@ -333,13 +336,13 @@ void maingame::checkVictory()
 			std::cin >> key;
 			if (key == 'q')
 				exit(69);
-		}*/
+		}
 	}
 
 	if (_animals.size() == 1)
 	{
-		isFinished = true;
-		/*std::cout << "!!! YOU LOOSE !!!" << std::endl << "You couldn't save the animals of jungle" << std::endl;
+
+		std::cout << "!!! YOU LOOSE !!!" << std::endl << "You couldn't save the animals of jungle" << std::endl;
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d Poachers remaining.",
 			_numAnimalsKilled, _numPoachersKilled, _poachers.size());
 		std::cout << "Press Enter to Quit." << std::endl;
@@ -349,7 +352,7 @@ void maingame::checkVictory()
 			std::cin >> key;
 			if (key == 'q')
 				exit(69);
-		}*/
+		}
 	}
 }
 
@@ -428,7 +431,6 @@ void maingame::processConsoleInput(){
 void maingame::drawConsole() {
 	
 
-
 	GLError(glClearDepth(1.0));
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
@@ -470,13 +472,12 @@ void maingame::drawConsole() {
 	menuFrameCount++;
 }
 
-void maingame:: drawGame()
+void maingame::drawGame()
 {
-	std::cout << "draw game called\n";
 
 	GLError(glClearDepth(1.0));
 	GLError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-	
+
 	_textureProgram.use();
 
 	glActiveTexture(GL_TEXTURE0);
@@ -487,7 +488,7 @@ void maingame:: drawGame()
 	GLint pUniform = _textureProgram.getUniformLocation("P");
 
 	glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
-	
+
 
 	_levels[_currentLevel]->draw();
 
@@ -511,43 +512,12 @@ void maingame:: drawGame()
 	_agentSpriteBatch.end();
 
 	_agentSpriteBatch.renderBatch();
-	
-	
-	if (isFinished)
-	{
-		SDL_Event evnt;
-
-		while (SDL_PollEvent(&evnt))
-		{
-			if (evnt.type == SDL_QUIT)
-				_gameState = GameState::EXIT;
-
-		}
-
-		GLuint menuTexture = GameEngine::ResourceManager::getTexture("textures/front-menu.png").id;
-
-		glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
-		glm::vec4 destRect(-1.0f, -1.0f, 2.0f, 2.0f);
-		GameEngine::Color color;
-		color.setColor(255, 255, 255, 255);
-
-		
-
-		resultSprites.begin();
-		resultSprites.draw(destRect, uvRect, menuTexture, 0.0f, color);
-		resultSprites.end();
-
-
-		resultSprites.renderBatch();
-		
-		
-	}
-	
-	
 	_textureProgram.unuse();
-	_window.swapBuffer();  
+
+	_window.swapBuffer();
 
 }
+
 
 void maingame::readHighscore() {
 

@@ -74,9 +74,6 @@
     <ClCompile Include="src\sprites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TextureCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -17,7 +17,7 @@
 
 class Poachers;
 
-enum class GameState {START, PLAY, EXIT,  }; 
+enum class GameState {START, PLAY, EXIT}; 
 class maingame
 {
 public:
@@ -44,7 +44,6 @@ private:
 
 	void drawGame();
 	void drawConsole();
-	void drawResult();
 	
 	void readHighscore();
 	void saveHighscore();
@@ -65,8 +64,8 @@ private:
 
 	int _currentLevel;
 
-	bool isFinished;
 	bool isGameWon;
+	bool isNewHighscore;
 
 	GameEngine::Windows _window;
 	
@@ -79,7 +78,6 @@ private:
 	GameEngine::SpriteBatch _spriteBatch;
 
 	GameEngine::SpriteBatch consoleSprites;
-	GameEngine::SpriteBatch resultSprites;
 
 	GameEngine::keyHandler _keyHandler ;
 	

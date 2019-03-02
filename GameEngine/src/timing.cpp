@@ -1,5 +1,6 @@
 #include "timing.h"
 #include "SDL.h"
+#include <iostream>
 
 namespace GameEngine {
 	FpsLimiter::FpsLimiter() {
@@ -14,12 +15,15 @@ namespace GameEngine {
 
 	void FpsLimiter::beginFrame() {
 		_startTicks = SDL_GetTicks();
+		
+
 	}
 
 	float FpsLimiter::endFrame() {
 		calculateFPS();
 
 		float frameTicks = (float)(SDL_GetTicks() - _startTicks);
+		
 		if (1000.0f / _maxFPS > frameTicks) {
 			SDL_Delay((Uint32)(1000.0f / _maxFPS - frameTicks));
 		}

@@ -37,7 +37,7 @@ namespace GameEngine
 			needsMatrixUpdate = false;
 		}
 	}
-	glm::vec2 Camera2D::ScreenToWorldCoordinates(glm::vec2 screenCoordinates) {\
+	glm::vec2 Camera2D::ScreenToWorldCoordinates(glm::vec2 screenCoordinates) {
 
 		screenCoordinates.y = _screenHeight - screenCoordinates.y;
 
