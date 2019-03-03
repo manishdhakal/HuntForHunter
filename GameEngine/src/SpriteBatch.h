@@ -5,13 +5,7 @@
 #include<vector>
 namespace GameEngine
 {
-	enum class GlyphSortType
-	{
-		None,
-		FrontToBack,
-		BackToFront,
-		Texture
-	};
+	
 	struct Glyph {
 		GLuint texture;
 		float depth;
@@ -39,7 +33,7 @@ namespace GameEngine
 		SpriteBatch();
 		~SpriteBatch();
 		void init();
-		void begin(GlyphSortType SortType=GlyphSortType::Texture);
+		void begin();
 		void  end();
 		void draw(const glm::vec4& DestRect, const glm::vec4& UVRect, GLuint texture, float depth, const Color& color);
 		void renderBatch();
@@ -47,17 +41,8 @@ namespace GameEngine
 	private:
 		void CreateRenderBatches();
 		void  CreateVertexArray();
-		
-		void SortGlyphs();
-		static bool CompareFrontToBack(Glyph* a, Glyph* b);
-		static bool CompareBackToFront(Glyph* a, Glyph* b);
-		static bool CompareTexture(Glyph* a, Glyph* b);
-
-
-
 		GLuint Vbo;
 		GLuint Vao;
-		GlyphSortType _SortType;
 		std::vector<Glyph*>  Glyphs;
 		std::vector<RenderBatch> RenderBatches;
 	};

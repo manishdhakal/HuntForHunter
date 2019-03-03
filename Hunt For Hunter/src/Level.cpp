@@ -7,7 +7,7 @@
 
 Level::Level(const std::string &fileName)
 {
-	//resourceManager = resourceManager;
+	
 	std::ifstream file;
 	file.open(fileName);
 
@@ -99,12 +99,7 @@ Level::Level(const std::string &fileName)
 					0.0f,
 					wcolor);
 
-				//_levelData[][x] = '.';
-				/*_spriteBatch.draw(destRect,
-					uvRect,
-					GameEngine::ResourceManager::getTexture("textures/poachers.png").id,
-					0.0f,
-					wcolor);*/
+			
 				_poacherStartPosition.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
 				break;
 			case '.':
@@ -118,47 +113,7 @@ Level::Level(const std::string &fileName)
 			default:
 				std::printf("Unexpected symbol %c at (%d,%d)", tile, x, y);
 				break;
-			/*switch (tile) {
 			
-			case 'R':
-				_spriteBatch.draw(destRect,
-					uvRect,
-					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
-					0.0f,
-					wcolor);
-				break;
-			case 'G':
-				_spriteBatch.draw(destRect,
-					uvRect,
-					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
-					0.0f,
-					wcolor);
-				break;
-			case 'L':
-				_spriteBatch.draw(destRect,
-					uvRect,
-					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
-					0.0f,
-					wcolor);
-				break;
-			case 'B':
-				
-				break;
-			case '@':
-				//_levelData[i][x] = '.';
-				_startSaviourPos.x = x * TILE_WIDTH;
-				_startSaviourPos.y = y * TILE_WIDTH;
-				break;
-			case 'Z':
-				
-				//_levelData[][x] = '.';
-				_poacherStartPosition.emplace_back(x * TILE_WIDTH, y * TILE_WIDTH);
-				break;
-			case '.':
-				break;
-			default:
-				std::printf("Unexpected symbol %c at (%d,%d)", tile, x, y);
-				break;*/
 			}
 		}
 	}

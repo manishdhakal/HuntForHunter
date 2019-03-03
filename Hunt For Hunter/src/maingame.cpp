@@ -71,7 +71,7 @@ void maingame::initLevel()
 	_animals.push_back(_saviour);
 
 	 std::mt19937 randomEngine;
-	randomEngine.seed(time(nullptr));
+	 randomEngine.seed(time(nullptr));
 	 std::uniform_int_distribution<int> randX(2, _levels[_currentLevel]->getWidth() - 2);
 	 std::uniform_int_distribution<int> randY(2, _levels[_currentLevel]->getHeight() - 2);
 
@@ -86,14 +86,14 @@ void maingame::initLevel()
 	for (int i = 0; i < poacherPositions.size(); i++)
 	{
 		_poachers.push_back(new Poachers);
-		//glm::vec2 pos(randX(randomEngine)*TILE_WIDTH, randY(randomEngine)*TILE_WIDTH);
 		_poachers.back()->init(POACHER_SPEED, poacherPositions[i]);
 
 	}
 	const float BULLET_SPEED = 20.0f;
-	_saviour->addGun(new Gun("Magnum", 10, 1, 5.0f, 30, BULLET_SPEED));
+	//string name,int fireRate,int bulletsPerShot,float spread ,float bulletDamage,float bulletSpeed
+	_saviour->addGun(new Gun("Magnum", 10, 1, 5.0f, 30.0f, BULLET_SPEED));
 	_saviour->addGun(new Gun("Shotgun", 30, 12, 20.0f, 4, BULLET_SPEED));
-	_saviour->addGun(new Gun("MP5", 2, 1, 10.0f, 20, BULLET_SPEED));
+	_saviour->addGun(new Gun("MP5", 2, 1, 10.0f, 20.0f, BULLET_SPEED));
 }
 
 void maingame::initShaders()
@@ -470,6 +470,8 @@ void maingame::drawConsole() {
 	menuFrameCount++;
 }
 
+//Draw animals,poachers,bullets and saviour
+
 void maingame::drawGame()
 {
 
@@ -516,7 +518,7 @@ void maingame::drawGame()
 
 }
 
-
+//For reading the high score
 void maingame::readHighscore() {
 
 	std::string scorestring;
@@ -527,6 +529,7 @@ void maingame::readHighscore() {
 
 	ScoreFile.close();
 }
+//For saving the high score
 void maingame::saveHighscore() {
 
 	std::ofstream Highscorefile("score/highscore", std::ofstream::out);

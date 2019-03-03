@@ -18,9 +18,9 @@ namespace GameEngine
 		CreateVertexArray();
 		
 	}
-	void SpriteBatch:: begin(GlyphSortType SortType)
+	void SpriteBatch:: begin()
 	{
-		_SortType = SortType;
+		
 		RenderBatches.clear();
 		for (int i = 0; i < Glyphs.size(); i++)
 		{
@@ -30,7 +30,6 @@ namespace GameEngine
 	}
 	void SpriteBatch::end()
 	{
-		SortGlyphs();
 		CreateRenderBatches();
 	}
 	// Every time the draw is called, a new glyph(sprite) is added to the vector of it
@@ -148,35 +147,6 @@ namespace GameEngine
 
 	}
 
-	void SpriteBatch::SortGlyphs()
-	{
-		switch (_SortType)
-		{
-		case GlyphSortType::BackToFront:
-			std::stable_sort(Glyphs.begin(),Glyphs.end(),CompareBackToFront);
-			break;
-		case GlyphSortType::FrontToBack:
-			std::stable_sort(Glyphs.begin(), Glyphs.end(),CompareFrontToBack );
-			break;
-		case GlyphSortType::Texture:
-			std::stable_sort(Glyphs.begin(), Glyphs.end(),CompareTexture );
-			break;
-		}
-		
-	}
-
-	bool SpriteBatch::CompareFrontToBack(Glyph* a, Glyph* b)
-	{
-		return (a->depth < b->depth);
-	}
-	bool SpriteBatch::CompareBackToFront(Glyph* a, Glyph* b)
-	{
-		return (a->depth > b->depth);
-	 }
-	bool SpriteBatch::CompareTexture(Glyph* a, Glyph* b)
-	{
-		return (a->texture < b->texture);
-	 }
-
+	
 
 }
