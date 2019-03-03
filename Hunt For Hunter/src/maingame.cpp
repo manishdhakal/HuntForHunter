@@ -1,8 +1,6 @@
 #include "maingame.h"
 #include"Poachers.h"
 #include"Gun.h"
-
-
 #include "Common.h"
 #include <iostream>
 #include <string>
@@ -20,8 +18,8 @@ const float ANIMAL_SPEED = 1.0f;
 const float POACHER_SPEED = 1.3f;
 
 maingame::maingame() :
-	_screenWidth(1024),
-	_screenHeight(768),
+	_screenWidth(1500),
+	_screenHeight(800),
 	_fps(0),
 	_saviour(nullptr),
 	_numAnimalsKilled(0),
@@ -41,10 +39,10 @@ maingame::~maingame()
 
 void maingame::run()
 {
-	initSystems();
-	initLevel();
+	initSystems();  // To start the system 
+	initLevel();  //To load the level data
 	menuFrameCount = 0;
-	gameLoop();
+	gameLoop();  // To start the game
 }
 
 void maingame::initSystems()
@@ -326,7 +324,7 @@ void maingame::checkVictory()
 		std::printf("You killed %d Animals and %d poachers.\nThere are %d/%d Animals remaining.",
 			_numAnimalsKilled,_numPoachersKilled,_animals.size()-1,_levels[_currentLevel]->getNumAnimals());
 		if (isNewHighscore) {
-			std::cout << "Congratulations you have got new highscore of " << _animals.size() << '\n';
+			std::cout << "Congratulations you have got new highscore of " << _animals.size()-1 << '\n';
 		}
 		
 		std::cout << "Press Enter to Quit." << std::endl;

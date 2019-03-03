@@ -187,7 +187,6 @@
     <ClInclude Include="src\GLSLProgram.h" />
     <ClInclude Include="src\ImageLoader.h" />
     <ClInclude Include="src\ResourceManager.h" />
-    <ClInclude Include="src\sprites.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\TextureCache.h" />
@@ -203,7 +202,6 @@
     <ClCompile Include="src\GLSLProgram.cpp" />
     <ClCompile Include="src\ImageLoader.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
-    <ClCompile Include="src\sprites.cpp" />
     <ClCompile Include="src\TextureCache.cpp" />
     <ClCompile Include="src\timing.cpp" />
     <ClCompile Include="src\Windows.cpp" />

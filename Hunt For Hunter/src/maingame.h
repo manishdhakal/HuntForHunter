@@ -3,7 +3,6 @@
 #include"GameEngine.h"
 #include "GLSLProgram.h"
 #include <vector>
-#include "sprites.h"
 #include "texture.h"
 #include "Windows.h"
 #include "Camera2D.h"

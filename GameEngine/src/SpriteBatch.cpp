@@ -33,6 +33,8 @@ namespace GameEngine
 		SortGlyphs();
 		CreateRenderBatches();
 	}
+	// Every time the draw is called, a new glyph(sprite) is added to the vector of it
+
 	void SpriteBatch::draw(const glm::vec4& DestRect, const glm::vec4& UVRect, GLuint texture, float depth, const Color& color)
 	{
 		Glyph* newGlyph= new Glyph;

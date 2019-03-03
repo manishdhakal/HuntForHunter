@@ -58,14 +58,14 @@ Level::Level(const std::string &fileName)
 					0.0f,
 					wcolor);
 				break;
-			case 'G':
+			case 'L':
 				_spriteBatch.draw(destRect,
 					uvRect,
 					GameEngine::ResourceManager::getTexture("textures/log.png").id,
 					0.0f,
 					wcolor);
 				break;
-			case 'L':
+			case 'G':
 				_spriteBatch.draw(destRect,
 					uvRect,
 					GameEngine::ResourceManager::getTexture("textures/bush.png").id,
@@ -91,7 +91,7 @@ Level::Level(const std::string &fileName)
 				_startSaviourPos.x = x * TILE_WIDTH;
 				_startSaviourPos.y = y * TILE_WIDTH;
 				break;
-			case 'Z':
+			case 'P':
 				_leveldata[y][x] = '.';
 				_spriteBatch.draw(destRect,
 					uvRect,
