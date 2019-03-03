@@ -106,10 +106,7 @@ void Agent::draw(GameEngine::SpriteBatch& _spriteBatch, int i)
 	destRect.y = _position.y;
 	destRect.z = AGENT_WIDTH;
 	destRect.w = AGENT_WIDTH;
-	/*if (i == 0)
-	{
-		std::cout << destRect.x << '\n' << destRect.y << '\n' << destRect.z << '\n' << destRect.w << '\n';
-	}*/
+	
 	_spriteBatch.draw(destRect, uvRect, textureID, 0.0f, _color);
 }
 
@@ -165,7 +162,6 @@ void Agent::checkTilePosition(const std::vector<std::string>& levelData,
 
 void Agent::collideWithTile(glm::vec2 tilePos)
 {
-	//const float AGENT_RADIUS = (float)AGENT_WIDTH / 2.0f;
 	const float TILE_RADIUS= (float)TILE_WIDTH / 2.0f;
 	const float MIN_DISTANCE = AGENT_RADIUS + TILE_RADIUS;
 	glm::vec2 centerPlayerPos = _position + glm::vec2(AGENT_RADIUS);

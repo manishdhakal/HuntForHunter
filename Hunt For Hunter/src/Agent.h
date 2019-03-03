@@ -52,12 +52,7 @@ protected:
 	GameEngine::Color _color;
 	float _speed;
 	float _health;
-
-
-
 	std::string spriteFile;
-
-
 
 };
 

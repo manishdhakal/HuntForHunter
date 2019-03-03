@@ -35,6 +35,20 @@ maingame::~maingame()
 	{
 		delete _levels[i];
 	}
+	_levels.clear();
+
+	for (int i = 0; i < _animals.size(); i++)
+	{
+		delete _animals[i];
+	}
+	_animals.clear();
+
+	for (int i = 0; i < _poachers.size(); i++)
+	{
+		delete _poachers[i];
+	}
+	_animals.clear();
+
 }
 
 void maingame::run()

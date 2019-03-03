@@ -1,4 +1,4 @@
-AnimaGs: 50
+Animals: 50
 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 B...............GGG................P...........................................................................B
 B...@...................................................................................P......................B
