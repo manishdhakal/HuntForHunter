@@ -14,8 +14,10 @@ Instructions for Compiling:
 
 
 The necessary files required for the executable file to run directly outside the IDE are:
+
 -Levels
 -score
 -textures
 -shaders
+
 	PS:All of these files are available in the "Hunt For Hunter" directory.
