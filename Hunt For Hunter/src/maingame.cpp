@@ -18,8 +18,8 @@ const float ANIMAL_SPEED = 1.0f;
 const float POACHER_SPEED = 1.3f;
 
 maingame::maingame() :
-	_screenWidth(1500),
-	_screenHeight(800),
+	_screenWidth(1000),
+	_screenHeight(720),
 	_fps(0),
 	_saviour(nullptr),
 	_numAnimalsKilled(0),

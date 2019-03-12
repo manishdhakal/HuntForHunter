@@ -17,7 +17,5 @@ private:
 	Animal* getNearestAnimal(std::vector<Animal*>& animals);
 
 
-
-
 };
 

@@ -8,7 +8,5 @@ int main(int argc, char** argv)
 
 	mainGame.run();   // To start the game
 
-
-
 	return 0;
 }
