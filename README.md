@@ -1,4 +1,5 @@
 # HuntForHunter
+## Curriculum project for Object Oriented Programming in C++
 
 Library Used : OpenGL 4.6, SDL 2.0 and glm 0.9.9.3
 
